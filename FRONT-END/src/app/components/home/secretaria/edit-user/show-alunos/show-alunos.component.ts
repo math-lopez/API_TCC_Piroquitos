@@ -22,11 +22,17 @@ export class ShowAlunosComponent implements OnInit {
   constructor(private authServ: AuthService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.getUsers();
+  }
+  getUsers(){
     this.authServ.users.subscribe(users => {
       this.dataSource = new MatTableDataSource(users);
+    });
+    
+    setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-    });
+    }, 300);
   }
   editStudent(student){
     console.log(student)
@@ -36,6 +42,7 @@ export class ShowAlunosComponent implements OnInit {
 
   onBack(event){
     this.modeEdit = event;
+    this.getUsers();
   }
 
   deleteAula(aula){
