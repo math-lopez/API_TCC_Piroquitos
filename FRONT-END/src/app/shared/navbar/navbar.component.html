@@ -1,0 +1,45 @@
+<div *ngIf="auth">
+  <mat-toolbar class="mat-toolbar-primary">
+    <mat-toolbar-row>
+      <span class="title">UNIP</span>
+      <div class="btnsRight">
+        <button
+        (click)="logout()"
+          class="btn"
+          mat-icon-button
+          class="example-icon favorite-icon"
+          aria-label="Example icon-button with heart icon"
+        >
+          <span class="material-icons" color="primary"> exit_to_app </span>
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-toolbar class="mat-toolbar-secundary">
+    <mat-toolbar-row>
+      <nav id="menu">
+        <ul>
+          <li *ngIf="usuario.tipo == 'secretaria'" routerLinkActive="active">
+            <a routerLink="home/sec" style="cursor: pointer;">cadastrar usuário</a>
+          </li>
+          <li *ngIf="usuario.tipo == 'secretaria'">
+            <a [routerLink]="['home/editAluno']">editar usuário</a>
+          </li>
+          <!-- <li *ngIf="usuario.tipo == 'professor'">
+            <a routerLink="home/prof">alteração de presença</a>
+          </li> -->
+          <li *ngIf="usuario.tipo == 'professor'">
+            <a routerLink="home/prof">controle de aulas</a>
+          </li>
+          <li *ngIf="usuario.tipo == 'aluno'">
+            <a href="#">vizualizar presenças</a>
+          </li>
+          <li *ngIf="usuario.tipo == 'aluno'">
+            <a href="#">vizualizar aulas</a>
+          </li>
+        </ul>
+      </nav>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+

@@ -1,0 +1,38 @@
+<div class="containerMaster">
+  <div class="contentLogin">
+    <h1>UNIVERSIDADE PAULISTA</h1>
+    <div class="inputsLogin">
+        <mat-form-field appearance="fill" style="margin-bottom: 2.5rem">
+          <mat-label>Usuário</mat-label>
+          <input matInput [formControl]="user" />
+          <mat-error *ngIf="user.errors.required">Insira seu usuário</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your password</mat-label>
+          <input
+            matInput
+            [formControl]="password"
+            [type]="hide ? 'password' : 'text'"
+          />
+          <mat-error *ngIf="password.errors.required"
+            >Insira seu senha</mat-error
+          >
+          <button
+            id="btn"
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <span class="material-icons">
+              {{ hide ? "visibility_off" : "visibility" }}
+            </span>
+          </button>
+        </mat-form-field>
+    </div>
+    <div class="actionBtns">
+        <button (click)="auth()" mat-raised-button>Login</button>
+    </div>
+  </div>
+</div>

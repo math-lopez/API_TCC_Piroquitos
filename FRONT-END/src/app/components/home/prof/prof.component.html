@@ -1,0 +1,47 @@
+<div *ngIf="!modeEdit" class="showStudents">
+    <h1 class="titlePage">controle de aulas / presenças
+      <div style="float: right;">
+          <span id="iconAdd" class="material-icons" [matTooltip]="'adicionar aula'" (click)="openDialogAddAula()">
+            add_circle_outline
+            </span>
+      </div>
+    </h1>
+    <div class="contentPage">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="aula">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> aula </th>
+          <td mat-cell *matCellDef="let row"> {{row.aula}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="qtdAlunos">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> alunos </th>
+          <td mat-cell *matCellDef="let row"> {{row.qtdAlunos}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dataAula">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> data aula </th>
+          <td mat-cell *matCellDef="let row"> {{row.dataAula | date: 'dd/MM/yyyy HH:mm'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="opcoes">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> opções </th>
+          <td mat-cell *matCellDef="let row"> 
+            <span class="material-icons" style="color: orange;" [matTooltip]="'excluir'" (click)="deleteAula(row)">
+            delete_forever
+            </span>
+            <span class="material-icons" style="color: #23395B;" [matTooltip]="'alterar'" (click)="updateAula(row)">
+              system_update_alt
+              </span>
+          </td>
+        </ng-container>
+    
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr (click)="editStudent(row)" mat-row *matRowDef="let row; columns: displayedColumns;" style="cursor: pointer;"></tr>
+      </table>
+    
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, dataSource.data?.length]"></mat-paginator>
+      </div>
+</div>
+<app-edit-presenca *ngIf="modeEdit" (back)="onBack($event)" [aula]="aulaActive"></app-edit-presenca>
