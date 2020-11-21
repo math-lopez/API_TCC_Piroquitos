@@ -13,7 +13,7 @@ export class AuthService {
     this.usuario.next({
       nome: 'Matheus Lopes de Jesus',
       login: 'N123456',
-      tipo: 'professor',
+      tipo: 'secretaria',
       password: '123',
       presenca: false
     });

@@ -12,7 +12,7 @@ export class EditUserComponent implements OnInit {
 
   @Input() user: any;
   @Output() back = new EventEmitter<boolean>();
-  hide: boolean = true;
+  hide: boolean = false;
   cadAluno: FormGroup;
   tookPhoto: boolean;
   private horizontal: MatSnackBarHorizontalPosition = 'center';
@@ -25,7 +25,7 @@ export class EditUserComponent implements OnInit {
   ngOnInit(): void {
     this.cadAluno = this.formBuilder.group({
       login: [{value: this.user.login != undefined ? this.user.login : null, disabled: true}, [Validators.required]],
-      password: [{value: this.user.password != undefined ? this.user.password : null, disabled: true}, [Validators.required]],
+      password: [this.user.password != undefined ? this.user.password : null, [Validators.required]],
       tipo: [this.user.tipo, [Validators.required]],
       nomeRA: [this.user.nome, [Validators.required]]
     });
@@ -35,9 +35,8 @@ export class EditUserComponent implements OnInit {
   submit(){
     console.log(this.cadAluno)
     if(this.cadAluno.valid){
-      console.log(this.cadAluno)
       this.secServ.cadUser(this.cadAluno.value);
-      this.clearForm();
+      this.back.emit(false);
     }else{
       console.log(this.cadAluno)
       this._snackBar.open('Obrigatório preencher todos os campos.', 'fechar', {

@@ -21,7 +21,16 @@ export class LoginComponent implements OnInit {
   }
 
   auth(){
-    this.router.navigate(['home/prof']);
+    this.authServ.usuario.subscribe(resp => {
+      console.log(resp)
+      if(resp.tipo == 'secretaria')
+        this.router.navigate(['home/sec']);
+      else if(resp.tipo == 'professor')
+        this.router.navigate(['home/prof']);
+      else if(resp.tipo == 'aluno')
+        this.router.navigate(['home/aluno'])
+    });
+
     this.authServ.isAuth.next(true);
   }
 }
