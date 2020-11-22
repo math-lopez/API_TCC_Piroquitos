@@ -87,9 +87,17 @@ controller.editaSala = async function (response, sala) {
 
     db.execute(conn, query, dadosSala)
         .then((result) => {
-            console.log("Edição de sala realizada com sucesso.");
-            response.status(200)
-                .end();
+            if(result.affectedRows > 0){
+                console.log("Edição de sala realizada com sucesso.");
+                response.status(200)
+                    .end();
+            }
+            else{
+                console.log("A sala informada não existe para alteração.")
+                response.status(404)
+                    .json({ "Erro": "A sala informada não existe para alteração."} )
+                    .end();
+            }
         })
         .catch((err) => {
             console.log("Houve um erro na edição de sala: " + err)
@@ -106,9 +114,17 @@ controller.removeSala = async function (response, salaId) {
 
     db.execute(conn, query, [salaId])
         .then((result) => {
-            console.log("Remoção de sala realizada com sucesso.");
-            response.status(200)
-                .end();
+            if(result.affectedRows > 0){
+                console.log("Remoção de sala realizada com sucesso.");
+                response.status(200)
+                    .end();
+            }
+            else{
+                console.log("A sala informada não existe para deleção.")
+                response.status(404)
+                    .json({ "Erro": "A sala informada não existe para deleção."} )
+                    .end();
+            }
         })
         .catch((err) => {
             console.log("Houve um erro na remoção de sala: " + err)

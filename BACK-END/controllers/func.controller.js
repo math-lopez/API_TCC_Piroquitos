@@ -115,9 +115,17 @@ controller.editaFunc = async function (response, func) {
 
     db.execute(conn, query, dadosSala)
         .then((result) => {
-            console.log("Edição de funcionário realizada com sucesso.");
-            response.status(200)
-                .end();
+            if(result.affectedRows > 0){
+                console.log("Edição de funcionário realizada com sucesso.");
+                response.status(200)
+                    .end();
+            }
+            else{
+                console.log("O funcionário informado não existe para alteração.")
+                response.status(404)
+                    .json({ "Erro": "O funcionário informado não existe para alteração."} )
+                    .end();
+            }
         })
         .catch((err) => {
             console.log("Houve um erro na edição de funcionário: " + err)
@@ -134,9 +142,17 @@ controller.removeFuncById = async function (response, funcId) {
 
     db.execute(conn, query, [funcId])
         .then((result) => {
-            console.log("Remoção de funcionário realizada com sucesso.");
-            response.status(200)
-                .end();
+            if(result.affectedRows > 0){
+                console.log("Remoção de funcionário realizada com sucesso.");
+                response.status(200)
+                    .end();
+            }
+            else{
+                console.log("O funcionário informado não existe para deleção.")
+                response.status(404)
+                    .json({ "Erro": "O funcionário informado não existe para deleção."} )
+                    .end();
+            }
         })
         .catch((err) => {
             console.log("Houve um erro na remoção de funcionário: " + err)
@@ -153,9 +169,17 @@ controller.removeFuncByLogin = async function (response, login) {
 
     db.execute(conn, query, [login])
         .then((result) => {
-            console.log("Remoção de funcionário realizada com sucesso.");
-            response.status(200)
-                .end();
+            if(result.affectedRows > 0){
+                console.log("Remoção de funcionário realizada com sucesso.");
+                response.status(200)
+                    .end();
+            }
+            else{
+                console.log("O funcionário informado não existe para deleção.")
+                response.status(404)
+                    .json({ "Erro": "O funcionário informado não existe para deleção."} )
+                    .end();
+            }
         })
         .catch((err) => {
             console.log("Houve um erro na remoção de funcionário: " + err)
