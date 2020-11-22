@@ -3,7 +3,7 @@ const mysql = require('mysql');
 
 // Declaração de constantes.
 const USUARIO_MYSQL = "root";
-const SENHA_MYSQL = "";
+const SENHA_MYSQL = "toor";
 const BD_MYSQL = "tcc";
 
 const con = mysql.createConnection({

@@ -23,10 +23,14 @@ helper.toUsuario = function (body){
 }
 
 helper.toAluno = function (body){
-    if(body.nome != undefined && body.ra != undefined && body.login_FK != undefined){ //situação para cadastrar e alterar o aluno
+    if(body.alunoId == undefined && body.nome != undefined && body.ra != undefined && body.login_FK != undefined){
         return {"nome": body.nome, "ra": body.ra, "login_FK": body.login_FK};
-    }else if(body.ra != undefined && body.nome == undefined && body.login_FK == undefined){ //situação para buscar e remover o aluno
-        return {"ra": body.ra}
+    }else if(body.alunoId != undefined && body.nome != undefined && body.ra != undefined && body.login_FK != undefined){
+        return { "alunoId": body.alunoId, "nome": body.nome, "ra": body.ra, "login_FK": body.login_FK};
+    }else if(body.alunoId == undefined && body.ra == undefined && body.nome == undefined && body.login_FK != undefined){
+        return {"login_FK": body.login_FK}
+    }else if(body.alunoId != undefined && body.ra == undefined && body.nome == undefined && body.login_FK == undefined){
+        return {"alunoId": body.alunoId}
     }else{
         return {};
     }

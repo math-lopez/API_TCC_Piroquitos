@@ -10,10 +10,21 @@ router.post('/add', async function (req, res) {
     controller.novoAluno(res, aluno);
 });
 
-// Endpoint para buscar alunos.
-router.post('/search', async function (req, res) {
+// Endpoint para listar alunos.
+router.post('/list', async function(req, res) {
+    controller.listAluno(res);
+});
+
+// Endpoint para buscar alunos pelo Id.
+router.post('/searchById', async function (req, res) {
     const aluno = params2json.toAluno(req.body);
-    controller.getAluno(res, aluno.ra);
+    controller.getAlunoById(res, aluno.alunoId);
+});
+
+// Endpoint para buscar alunos pelo login.
+router.post('/searchByLogin', async function (req, res) {
+    const aluno = params2json.toAluno(req.body);
+    controller.getAlunoByLogin(res, aluno.login_FK);
 });
 
 // Endpoint para editar alunos.
@@ -22,10 +33,16 @@ router.post('/update', async function (req, res) {
     controller.editaAluno(res, aluno);
 });
 
-// Endpoint para remover alunos.
-router.post('/remove', async function (req, res) {
+// Endpoint para remover alunos pelo Id.
+router.post('/removeById', async function (req, res) {
     const aluno = params2json.toAluno(req.body);
-    controller.removeAluno(res, aluno);
+    controller.removeAlunoById(res, aluno.alunoId);
+});
+
+// Endpoint para remover alunos pelo login.
+router.post('/removeByLogin', async function (req, res) {
+    const aluno = params2json.toAluno(req.body);
+    controller.removeAlunoByLogin(res, aluno.login_FK);
 });
 
 // Exportanto módulo com todos os endpoints da rota de aluno.
