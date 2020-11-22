@@ -10,20 +10,18 @@ import { DialogConfirmMudancaPresencaComponent } from './dialog-confirm-mudanca-
 @Component({
   selector: 'app-prof',
   templateUrl: './prof.component.html',
-  styleUrls: ['./prof.component.scss']
+  styleUrls: ['./prof.component.scss'],
 })
 export class ProfComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  dateAtual = new Date();
   aulaActive: any;
+  dateAtual = new Date();
   modeEdit: boolean = false;
-  displayedColumns: string[] = ['aula', 'qtdAlunos', 'dataAula', 'opcoes'];
   dataSource: MatTableDataSource<any>;
-  constructor(
-    private authServ: AuthService, 
-    public dialog: MatDialog) { }
+  displayedColumns: string[] = ['aula', 'qtdAlunos', 'dataAula', 'opcoes'];
+  constructor(private authServ: AuthService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getAulas();
@@ -34,53 +32,53 @@ export class ProfComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  editStudent(aula){
+  editStudent(aula) {
     var timeAula = new Date(aula.dataAula);
-    if(this.dateAtual.getTime() >= timeAula.getTime()){
+    if (this.dateAtual.getTime() >= timeAula.getTime()) {
       this.modeEdit = true;
       this.aulaActive = aula;
     }
   }
 
-  getAulas(){
-    this.authServ.aulas.subscribe(aulas => {
-      this.dataSource = new MatTableDataSource(aulas)
+  getAulas() {
+    this.authServ.aulas.subscribe((aulas) => {
+      this.dataSource = new MatTableDataSource(aulas);
     });
 
     setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-    }, 200)
+    }, 200);
   }
 
-  onBack(event){
+  onBack(event) {
     this.modeEdit = event;
     this.dataSource = new MatTableDataSource();
     this.getAulas();
   }
 
-  openDialogAddAula(){
+  openDialogAddAula() {
     const dialogRef = this.dialog.open(AddAulaComponent, {
-      width: '50%'
+      width: '50%',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
     });
   }
 
-  updateAula(aula){
+  updateAula(aula) {
     this.dialog.open(AddAulaComponent, {
-      data: aula
+      data: aula,
     });
   }
 
-  deleteAula(aula){
+  deleteAula(aula) {
     const dialogRef = this.dialog.open(DialogConfirmMudancaPresencaComponent, {
-      data: 'deseja excluir esta aula?'
+      data: 'deseja excluir esta aula?',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
     });
   }

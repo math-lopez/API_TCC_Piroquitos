@@ -9,50 +9,52 @@ import { DialogConfirmMudancaPresencaComponent } from '../../../prof/dialog-conf
 @Component({
   selector: 'app-show-alunos',
   templateUrl: './show-alunos.component.html',
-  styleUrls: ['./show-alunos.component.scss']
+  styleUrls: ['./show-alunos.component.scss'],
 })
 export class ShowAlunosComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   userActive: any;
   modeEdit: boolean = false;
-  displayedColumns: string[] = ['id', 'nome', 'tipo', 'opcoes'];
   dataSource: MatTableDataSource<any>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  constructor(private authServ: AuthService, public dialog: MatDialog) { }
+  displayedColumns: string[] = ['id', 'nome', 'tipo', 'opcoes'];
+
+  constructor(private authServ: AuthService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getUsers();
   }
-  getUsers(){
-    this.authServ.users.subscribe(users => {
+
+  getUsers() {
+    this.authServ.users.subscribe((users) => {
       this.dataSource = new MatTableDataSource(users);
     });
-    
+
     setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }, 300);
   }
-  editStudent(student){
-    console.log(student)
+
+  editStudent(student) {
+    console.log(student);
     this.modeEdit = true;
     this.userActive = student;
   }
 
-  onBack(event){
+  onBack(event) {
     this.modeEdit = event;
     this.getUsers();
   }
 
-  deleteAula(aula){
+  deleteAula(aula) {
     const dialogRef = this.dialog.open(DialogConfirmMudancaPresencaComponent, {
-      data: 'deseja excluir este usuário?'
+      data: 'deseja excluir este usuário?',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
     });
   }
-
 }

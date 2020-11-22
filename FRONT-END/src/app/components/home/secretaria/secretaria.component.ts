@@ -18,6 +18,7 @@ export class SecretariaComponent implements OnInit {
 
   tookPhoto: boolean = true;
   cadAluno: FormGroup;
+  idPhoto = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,25 +37,27 @@ export class SecretariaComponent implements OnInit {
 
   submit() {
     if (this.cadAluno.valid) {
-      console.log(this.cadAluno);
-      this.secServ.cadUser(
-        {
-          login: this.cadAluno.value.login,
-          senha: this.cadAluno.value.password,
-          tipo: this.cadAluno.value.tipo
-        }
-      ).subscribe((resp) => {
-        this.tookPhoto = true;
-        this.clearForm();
-      });
+      this.cadUser();
     } else {
-      console.log(this.cadAluno);
       this._snackBar.open('Obrigatório preencher todos os campos.', 'fechar', {
         duration: 2000,
         horizontalPosition: this.horizontal,
         verticalPosition: this.vertical,
       });
     }
+  }
+
+  cadUser() {
+    this.secServ
+      .cadUser({
+        login: this.cadAluno.value.login,
+        senha: this.cadAluno.value.password,
+        tipo: this.cadAluno.value.tipo,
+      })
+      .subscribe((resp) => {
+        this.tookPhoto = true;
+        this.clearForm();
+      });
   }
 
   clearForm() {
@@ -65,6 +68,12 @@ export class SecretariaComponent implements OnInit {
   }
 
   capturePhoto() {
-    this.tookPhoto = false;
+    this.idPhoto++;
+    this.secServ
+      .savePhoto(this.cadAluno.value.login, this.idPhoto.toString())
+      .subscribe((resp) => {
+        console.log(resp);
+        this.tookPhoto = false;
+      });
   }
 }
