@@ -2,10 +2,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-// const usuarios_routes = require('./routes/usuarios.routes');
+const usuarios_routes = require('./routes/usuarios.routes');
 const alunos_routes = require('./routes/alunos.routes');
 // const func_routes = require('./routes/func.routes');
-// const salas_routes = require('./routes/salas.routes');
+const salas_routes = require('./routes/salas.routes');
 // const aulas_routes = require('./routes/aulas.routes');
 // const presenca_routes = require('./routes/presenca.routes');
 
