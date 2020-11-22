@@ -11,7 +11,7 @@ helper.toUsuario = function (body){
     else if(body.senha != undefined && body.tipo == undefined){
         return {"login": body.login, "senha": body.senha};
     }
-    else if(body.senha == undefined && body.tipo != undefined){
+    else if(body.senha == undefined && body.tipo == undefined){
         return {"login": body.login};
     }
 }

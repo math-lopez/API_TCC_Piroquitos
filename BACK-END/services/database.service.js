@@ -43,7 +43,7 @@ db.disc = async function (con){
     });
 }
 
-db.insert = function (conn, query, dados) {
+db.execute = function (conn, query, dados) {
     return new Promise((resolve, reject) => {
         conn.query(query, dados, function (err, result) {
             if (err) reject(err);
@@ -56,7 +56,7 @@ db.select =function (conn, query) {
     return new Promise((resolve, reject) => {
         conn.query(query, function (err, rows) {
             if (err) reject(err);
-            resolve(result);
+            resolve(rows);
         });
     });
 }
