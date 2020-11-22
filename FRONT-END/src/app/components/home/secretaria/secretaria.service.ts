@@ -13,6 +13,11 @@ export class SecretariaService {
     return this.http.post(`${environment.API_URL}usuarios/add`, user);
   }
 
+  cadAluno(aluno){
+    console.log(aluno);
+    return this.http.post(`${environment.API_URL}alunos/add`, aluno);
+  }
+
   updateUser(user) {
     console.log(user);
     return this.http.post(`${environment.API_URL}usuarios/update`, user);

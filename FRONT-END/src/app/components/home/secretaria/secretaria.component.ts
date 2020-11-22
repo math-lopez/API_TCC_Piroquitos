@@ -57,13 +57,9 @@ export class SecretariaComponent implements OnInit {
         tipo: this.cadAluno.value.tipo,
       })
       .subscribe((resp) => {
-        this._snackBar.open('Usuário criado com sucesso', 'fechar', {
-          duration: 4000,
-          horizontalPosition: this.horizontal,
-          verticalPosition: this.vertical,
-        });
-        this.tookPhoto = true;
-        this.clearForm();
+        if(this.cadAluno.value.tipo === 'aluno') this.cadastrarAluno();
+        else if(this.cadAluno.value.tipo === 'professor') console.log('professor');
+        else if(this.cadAluno.value.tipo === 'secretaria') console.log('secretaria');
       }, error => {
         this._snackBar.open('Erro ao salvar o usuário', 'fechar', {
           duration: 4000,
@@ -74,7 +70,20 @@ export class SecretariaComponent implements OnInit {
   }
 
   cadastrarAluno(){
-    
+    this.secServ.cadAluno({
+      nome: this.cadAluno.value.nome,
+      ra: this.cadAluno.value.funcRA,
+      login_FK: this.cadAluno.value.login
+    }).subscribe(resp => {
+      console.log(resp);
+      this.tookPhoto = true;
+      this._snackBar.open('Usuário criado com sucesso', 'fechar', {
+        duration: 4000,
+        horizontalPosition: this.horizontal,
+        verticalPosition: this.vertical,
+      });
+      this.clearForm();
+    })
   }
 
   clearForm() {
@@ -87,7 +96,7 @@ export class SecretariaComponent implements OnInit {
   capturePhoto() {
     this.idPhoto++;
     this.secServ
-      .savePhoto(this.cadAluno.value.login, this.idPhoto.toString())
+      .savePhoto(this.cadAluno.value.funcRA, this.idPhoto.toString())
       .subscribe((resp) => {
         console.log(resp);
         this.tookPhoto = false;
