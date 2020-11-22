@@ -13,7 +13,7 @@ const presenca_routes = require('./routes/presenca.routes');
 
 // TODO: TIRAR ESSAS SERVICES DAQUI PARA UMA CONTROLLER. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
 const EspService = require('./services/EspService.service');
-const FaceRecognitionService = require("./services/FaceRecognition.service");
+// const FaceRecognitionService = require("./services/FaceRecognition.service");
  
 // Declaração de constante para controle da porta do back-end.
 const port = 3000;

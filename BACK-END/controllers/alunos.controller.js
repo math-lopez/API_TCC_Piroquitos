@@ -54,14 +54,21 @@ controller.getAluno = async function (response, aluno) {
 //Editar aluno
 controller.editaAluno = async function (response, aluno) {
     const conn = await db.conn();
-    const query = "UPDATE Aluno_TB SET nome=? Where ra=?";
-    const dadosAluno = [aluno.nome, aluno.ra];
+    const query = "UPDATE Aluno_TB SET nome=?, login_FK=?  Where RA=?";
+    const dadosAluno = [aluno.nome, aluno.login_FK, aluno.ra];
 
     db.execute(conn, query, dadosAluno)
         .then((result) => {
+            if(result.affectedRows > 0){
             console.log("Edição do aluno realizada com sucesso.");
             response.status(200)
                 .end();
+            }else{
+                console.log("O aluno informado não existe para alteração.")
+                response.status(404)
+                .json({ "message": "O aluno informado não existe para alteração"} )
+                .end();
+            }
         })
         .catch((err) => {
             console.log("Houve um erro na edição do aluno: " + err)
@@ -78,7 +85,8 @@ controller.removeAluno = async function (response, aluno) {
 
     db.execute(conn, query, [aluno.ra])
         .then((result) => {
-            if(result.affectedRow > 0){
+            console.log("quantidade de linhas afetadas: ", result.affectedRows);
+            if(result.affectedRows > 0){
             console.log("Remoção do aluno realizada com sucesso.");
             response.status(200)
                 .end();
