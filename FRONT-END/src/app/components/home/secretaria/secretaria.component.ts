@@ -5,6 +5,7 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import { error } from 'protractor';
 import { SecretariaService } from './secretaria.service';
 
 @Component({
@@ -32,6 +33,7 @@ export class SecretariaComponent implements OnInit {
       password: [null, [Validators.required]],
       tipo: [null, [Validators.required]],
       nome: [null, [Validators.required]],
+      funcRA: [null, [Validators.required]]
     });
   }
 
@@ -55,9 +57,24 @@ export class SecretariaComponent implements OnInit {
         tipo: this.cadAluno.value.tipo,
       })
       .subscribe((resp) => {
+        this._snackBar.open('Usuário criado com sucesso', 'fechar', {
+          duration: 4000,
+          horizontalPosition: this.horizontal,
+          verticalPosition: this.vertical,
+        });
         this.tookPhoto = true;
         this.clearForm();
+      }, error => {
+        this._snackBar.open('Erro ao salvar o usuário', 'fechar', {
+          duration: 4000,
+          horizontalPosition: this.horizontal,
+          verticalPosition: this.vertical,
+        });
       });
+  }
+
+  cadastrarAluno(){
+    
   }
 
   clearForm() {

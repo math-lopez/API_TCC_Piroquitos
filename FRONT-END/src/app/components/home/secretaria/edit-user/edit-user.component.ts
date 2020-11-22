@@ -5,6 +5,7 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import { error } from 'protractor';
 import { AuthService } from 'src/app/shared/auth.service';
 import { SecretariaService } from '../secretaria.service';
 
@@ -56,7 +57,13 @@ export class EditUserComponent implements OnInit {
         })
         .subscribe((resp) => {
           console.log(resp);
-          this._snackBar.open('Usuário alterado om sucesso', 'fechar', {
+          this._snackBar.open('Usuário alterado com sucesso', 'fechar', {
+            duration: 4000,
+            horizontalPosition: this.horizontal,
+            verticalPosition: this.vertical,
+          });
+        }, error => {
+          this._snackBar.open('Erro ao alterar usuário', 'fechar', {
             duration: 4000,
             horizontalPosition: this.horizontal,
             verticalPosition: this.vertical,
