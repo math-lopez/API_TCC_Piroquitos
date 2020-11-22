@@ -117,9 +117,17 @@ controller.editaPresenca = async function (response, presenca) {
 
     db.execute(conn, query, dadosPresenca)
         .then((result) => {
-            console.log("Edição de presença realizada com sucesso.");
-            response.status(200)
-                .end();
+            if(result.affectedRows > 0){
+                console.log("Edição de presença realizada com sucesso.");
+                response.status(200)
+                    .end();
+            }
+            else{
+                console.log("A matrícula informada não existe para alteração.")
+                response.status(404)
+                    .json({ "Erro": "A matrícula informada não existe para alteração."} )
+                    .end();
+            }
         })
         .catch((err) => {
             console.log("Houve um erro na edição de presença: " + err)
@@ -136,9 +144,17 @@ controller.removePresenca = async function (response, presenca) {
 
     db.execute(conn, query, [presenca.alunoId_FK , presenca.aulaId_FK])
         .then((result) => {
-            console.log("Remoção de matrícula realizada com sucesso.");
-            response.status(200)
-                .end();
+            if(result.affectedRows > 0){
+                console.log("Remoção de matrícula realizada com sucesso.");
+                response.status(200)
+                    .end();
+            }
+            else{
+                console.log("A matrícula informada não existe para deleção.")
+                response.status(404)
+                    .json({ "Erro": "A matrícula informada não existe para deleção."} )
+                    .end();
+            }
         })
         .catch((err) => {
             console.log("Houve um erro na remoção de matrícula: " + err)
