@@ -4,20 +4,19 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/shared/auth.service';
-import { AlunoService } from './aluno.service';
+import { AlunoService } from '../aluno.service';
 
 @Component({
-  selector: 'app-aluno',
-  templateUrl: './aluno.component.html',
-  styleUrls: ['./aluno.component.scss']
+  selector: 'app-aulas',
+  templateUrl: './aulas.component.html',
+  styleUrls: ['./aulas.component.scss']
 })
-export class AlunoComponent implements OnInit {
-
+export class AulasComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   user: User;
-  displayedColumns: string[] = ['aula', 'responsavel', 'presenca'];
+  displayedColumns: string[] = ['aula', 'responsavel', 'horario'];
   dataSource: MatTableDataSource<any>;
   
   constructor(private alunoServ: AlunoService, private authServ: AuthService) { }

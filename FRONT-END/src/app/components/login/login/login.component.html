@@ -1,11 +1,11 @@
 <div class="containerMaster">
   <div class="contentLogin">
-    <h1>UNIVERSIDADE PAULISTA</h1>
+    <h1 style="font-weight: bolder;">UNIVERSIDADE PAULISTA</h1>
     <div class="inputsLogin">
         <mat-form-field appearance="fill" style="margin-bottom: 2.5rem">
           <mat-label>Usuário</mat-label>
           <input matInput [formControl]="user" />
-          <mat-error *ngIf="user.errors.required">Insira seu usuário</mat-error>
+          <mat-error *ngIf="user.errors?.required">Insira seu usuário</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Enter your password</mat-label>
@@ -14,7 +14,7 @@
             [formControl]="password"
             [type]="hide ? 'password' : 'text'"
           />
-          <mat-error *ngIf="password.errors.required"
+          <mat-error *ngIf="password.errors?.required"
             >Insira seu senha</mat-error
           >
           <button
@@ -30,6 +30,7 @@
             </span>
           </button>
         </mat-form-field>
+        <mat-error *ngIf="userIncorreto">sem acesso ao sistema</mat-error>
     </div>
     <div class="actionBtns">
         <button (click)="auth()" mat-raised-button>Login</button>

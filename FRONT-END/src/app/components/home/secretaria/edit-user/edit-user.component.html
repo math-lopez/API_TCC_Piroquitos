@@ -13,8 +13,8 @@
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label>Senha</mat-label>
-                <input matInput formControlName="password" [disabled]="true" [type]="hide ? 'password' : 'text'">
-                <mat-error *ngIf="cadAluno.controls.password.errors?.required">campo obrigatório</mat-error>
+                <input matInput formControlName="senha" [disabled]="true" [type]="hide ? 'password' : 'text'">
+                <mat-error *ngIf="cadAluno.controls.senha.errors?.required">campo obrigatório</mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label>Tipo</mat-label>
@@ -26,9 +26,9 @@
                   <mat-error *ngIf="cadAluno.controls.tipo.errors?.required">campo obrigatório</mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
-                <mat-label>Nome / R.A</mat-label>
-                <input matInput formControlName="nomeRA">
-                <mat-error *ngIf="cadAluno.controls.nomeRA.errors?.required">campo obrigatório</mat-error>
+                <mat-label>Nome</mat-label>
+                <input matInput formControlName="nome">
+                <mat-error *ngIf="cadAluno.controls.nome.errors?.required">campo obrigatório</mat-error>
               </mat-form-field>
           </form>
           <div class="btnAction">

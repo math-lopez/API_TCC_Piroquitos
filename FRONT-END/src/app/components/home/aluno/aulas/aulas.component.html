@@ -2,27 +2,20 @@
     <h1 class="titlePage">visualizar presenças</h1>
     <div class="contentPage">
     <table mat-table [dataSource]="dataSource" matSort>
-      
-          <ng-container matColumnDef="aula">
+    
+        <ng-container matColumnDef="aula">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> aula </th>
-            <td mat-cell *matCellDef="let row"> {{row.nome}} </td>
+            <td mat-cell *matCellDef="let row"> {{row.login}} </td>
           </ng-container>
-
+      
           <ng-container matColumnDef="responsavel">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> responsavel </th>
             <td mat-cell *matCellDef="let row"> {{row.nome}} </td>
           </ng-container>
-    
-          <ng-container matColumnDef="presenca">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> presença </th>
-            <td mat-cell *matCellDef="let row"> 
-              <span class="material-icons" *ngIf="row.presenca === true" style="color: green;"> 
-                check_circle_outline
-              </span>
-              <span class="material-icons" *ngIf="row.presenca === false" style="color: red;">
-                cancel
-              </span>
-            </td>
+
+          <ng-container matColumnDef="horario">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> horario </th>
+            <td mat-cell *matCellDef="let row"> {{row.nome}} </td>
           </ng-container>
     
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

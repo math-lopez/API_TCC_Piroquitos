@@ -13,39 +13,41 @@ import { SecretariaService } from './secretaria.service';
   styleUrls: ['./secretaria.component.scss'],
 })
 export class SecretariaComponent implements OnInit {
-  
   private horizontal: MatSnackBarHorizontalPosition = 'center';
   private vertical: MatSnackBarVerticalPosition = 'bottom';
-  
+
   tookPhoto: boolean = true;
   cadAluno: FormGroup;
-  
 
   constructor(
     private formBuilder: FormBuilder,
     private secServ: SecretariaService,
     private _snackBar: MatSnackBar
-    ) {}
+  ) {}
 
   ngOnInit(): void {
-
     this.cadAluno = this.formBuilder.group({
       login: [null, [Validators.required]],
       password: [null, [Validators.required]],
       tipo: [null, [Validators.required]],
-      nomeRA: [null, [Validators.required]],
+      nome: [null, [Validators.required]],
     });
   }
 
   submit() {
-
     if (this.cadAluno.valid) {
       console.log(this.cadAluno);
-      this.secServ.cadUser(this.cadAluno.value);
-      this.tookPhoto = true;
-      this.clearForm();
-    } 
-    else {
+      this.secServ.cadUser(
+        {
+          login: this.cadAluno.value.login,
+          senha: this.cadAluno.value.password,
+          tipo: this.cadAluno.value.tipo
+        }
+      ).subscribe((resp) => {
+        this.tookPhoto = true;
+        this.clearForm();
+      });
+    } else {
       console.log(this.cadAluno);
       this._snackBar.open('Obrigatório preencher todos os campos.', 'fechar', {
         duration: 2000,
@@ -56,7 +58,6 @@ export class SecretariaComponent implements OnInit {
   }
 
   clearForm() {
-
     this.cadAluno.markAsPristine();
     this.cadAluno.markAsUntouched();
     this.cadAluno.updateValueAndValidity();
@@ -64,7 +65,6 @@ export class SecretariaComponent implements OnInit {
   }
 
   capturePhoto() {
-    
     this.tookPhoto = false;
   }
 }
