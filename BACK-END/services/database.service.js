@@ -3,14 +3,15 @@ const mysql = require('mysql');
 
 // Declaração de constantes.
 const USUARIO_MYSQL = "root";
-const SENHA_MYSQL = "toor";
+const SENHA_MYSQL = "";
 const BD_MYSQL = "tcc";
 
 const con = mysql.createConnection({
     host: 'localhost',
     user: USUARIO_MYSQL,
     password: SENHA_MYSQL,
-    database: BD_MYSQL
+    database: BD_MYSQL,
+    port: "3306"
 });
 
 // Declarando módulo.
@@ -43,7 +44,7 @@ db.disc = async function (con){
     });
 }
 
-db.insert = function (conn, query, dados) {
+db.execute = function (conn, query, dados) {
     return new Promise((resolve, reject) => {
         conn.query(query, dados, function (err, result) {
             if (err) reject(err);
@@ -56,7 +57,7 @@ db.select =function (conn, query) {
     return new Promise((resolve, reject) => {
         conn.query(query, function (err, rows) {
             if (err) reject(err);
-            resolve(result);
+            resolve(rows);
         });
     });
 }
