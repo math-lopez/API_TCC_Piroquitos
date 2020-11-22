@@ -2,6 +2,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
+// Importação das rotas das APIs.
 const usuarios_routes = require('./routes/usuarios.routes');
 const alunos_routes = require('./routes/alunos.routes');
 const func_routes = require('./routes/func.routes');
@@ -40,7 +42,7 @@ app.get('/face-api-test', async function (req, res) {
  
 // Configuração dos endpoints para as APIs.
 app.use('/usuarios', usuarios_routes);
-// app.use('/alunos', alunos_routes); // Lucca
+app.use('/alunos', alunos_routes);
 app.use('/funcionarios', func_routes);
 app.use('/salas', salas_routes);
 // app.use('/aulas', aulas_routes);

@@ -1,0 +1,49 @@
+<div class="contentPage">
+    <h1 class="titlePage">adicionar aula </h1>
+        <div>
+          <form [formGroup]="cadAula">
+            <mat-form-field appearance="fill" style="margin-right: 0.9rem; width: 100%;">
+              <mat-label>aula</mat-label>
+              <input matInput formControlName="aula" />
+              <mat-error *ngIf="cadAula.controls.aula.errors?.required"
+                >campo obrigatório</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="fill" style="margin-right: 2%; width: 48%;">
+                <mat-label>inicio da aula</mat-label>
+                <input matInput type="datetime-local" formControlName="inicioAula">
+                <mat-error *ngIf="cadAula.controls.inicioAula.errors?.required"
+                >campo obrigatório</mat-error
+              >
+              </mat-form-field>
+              <mat-form-field appearance="fill" style="margin-left: 2%; width: 48%;">
+                <mat-label>sala</mat-label>
+                <mat-select formControlName="sala">
+                  <mat-option *ngFor="let sala of salas" [value]="sala">
+                    {{sala}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="cadAula.controls.sala.errors?.required"
+                >campo obrigatório</mat-error
+              >
+              </mat-form-field>
+              <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Toppings</mat-label>
+                <mat-select multiple formControlName="alunos">
+                  <mat-option *ngFor="let aluno of alunosCadastrados" [value]="aluno.login" >
+                    {{aluno.login + '-' +aluno.nome}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+          </form>
+
+          <div class="btnAction">
+          <button mat-raised-button (click)="dialogRef.close()" >
+            cancelar
+          </button>
+          <button mat-raised-button class="btnActionSec" (click)="addAula()">
+            adicionar
+          </button>
+          </div>
+        </div>
+      </div>

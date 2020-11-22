@@ -1,0 +1,12 @@
+@import '../../../../../../styles';
+
+.containerTable{
+    width: 70%;
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+::ng-deep .mat-button-wrapper > svg{
+    color: #23395B !important;
+}

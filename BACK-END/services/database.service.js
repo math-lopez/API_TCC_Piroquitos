@@ -3,14 +3,15 @@ const mysql = require('mysql');
 
 // Declaração de constantes.
 const USUARIO_MYSQL = "root";
-const SENHA_MYSQL = "toor";
+const SENHA_MYSQL = "";
 const BD_MYSQL = "tcc";
 
 const con = mysql.createConnection({
     host: 'localhost',
     user: USUARIO_MYSQL,
     password: SENHA_MYSQL,
-    database: BD_MYSQL
+    database: BD_MYSQL,
+    port: "3306"
 });
 
 // Declarando módulo.

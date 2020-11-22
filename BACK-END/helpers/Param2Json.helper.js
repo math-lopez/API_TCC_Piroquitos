@@ -1,4 +1,4 @@
-const { IFFT } = require("@tensorflow/tfjs-node");
+// const { IFFT } = require("@tensorflow/tfjs-node");
 
 // Declarando módulo.
 let helper = {};
@@ -19,6 +19,18 @@ helper.toUsuario = function (body){
     }
     else {
         return {"login": body.login, "tipo": body.tipo};
+    }
+}
+
+helper.toAluno = function (body){
+    if(body.nome != undefined && body.ra != undefined && body.login_FK != undefined   ){ //situação para cadastrar o aluno
+        return {"nome": body.nome, "ra": body.ra, "login_FK": body.login_FK};
+    }else if(body.ra != undefined && body.nome == undefined && body.login_FK == undefined){ //situação para buscar e remover o aluno
+        return {"ra": body.ra}
+    }else if(body.nome != undefined && body.ra != undefined && body.login_FK == undefined){ //situação para alterar o aluno
+        return {"nome": body.nome, "ra": body.ra}
+    }else{
+        return {};
     }
 }
 
