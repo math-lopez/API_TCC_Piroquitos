@@ -28,6 +28,8 @@ import { ShowAlunosComponent } from './secretaria/edit-user/show-alunos/show-alu
 import { DialogConfirmMudancaPresencaComponent } from './prof/dialog-confirm-mudanca-presenca/dialog-confirm-mudanca-presenca.component';
 import { AlunoComponent } from './aluno/aluno.component';
 import { AulasComponent } from './aluno/aulas/aulas.component';
+import { SalasComponent } from './secretaria/salas/salas.component';
+import { AddSalaComponent } from './secretaria/salas/add-sala/add-sala.component';
 
 
 
@@ -40,7 +42,7 @@ import { AulasComponent } from './aluno/aulas/aulas.component';
     ProfComponent, 
     EditPresencaComponent, 
     AddAulaComponent, 
-    DialogConfirmMudancaPresencaComponent, AlunoComponent, AulasComponent
+    DialogConfirmMudancaPresencaComponent, AlunoComponent, AulasComponent, SalasComponent, AddSalaComponent
   ],
   imports: [
     CommonModule,

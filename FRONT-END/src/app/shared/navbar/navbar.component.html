@@ -25,6 +25,9 @@
           <li *ngIf="usuario.tipo == 'secre'">
             <a [routerLink]="['home/editAluno']">editar usuário</a>
           </li>
+          <li *ngIf="usuario.tipo == 'secre'">
+            <a [routerLink]="['home/salas']">salas</a>
+          </li>
           <!-- <li *ngIf="usuario.tipo == 'professor'">
             <a routerLink="home/prof">alteração de presença</a>
           </li> -->
