@@ -10,12 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tensorflow/tfjs-node": "^2.7.0",
+    "@vladmandic/face-api": "^0.8.8",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "file-system": "^2.2.2",
     "mkdirp": "^1.0.4",
-    "mysql2": "^2.2.5",
-    "request": "^2.88.2",
-    "@tensorflow/tfjs-node": "^2.7.0",
-    "@vladmandic/face-api": "^0.8.8"
+    "mysql": "^2.18.1",
+    "request": "^2.88.2"
   }
 }
