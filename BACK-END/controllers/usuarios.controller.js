@@ -82,8 +82,18 @@ controller.getUsuario = async function (response, usuario) {
 // Método para edição de usuário.
 controller.editaUsuario = async function (response, usuario) {
     const conn = await db.conn();
-    const query = "UPDATE Usuarios_TB SET senha=?, tipo=? Where login=?";
-    const dadosUsuario = [usuario.senha, usuario.tipo, usuario.login];
+    
+    var query = "";
+    var dadosUsuario = [];
+
+    if(usuario.senha == undefined){
+        query = "UPDATE Usuarios_TB SET tipo=? Where login=?";
+        dadosUsuario = [usuario.tipo, usuario.login];
+    }
+    else {
+        query = "UPDATE Usuarios_TB SET senha=?, tipo=? Where login=?";
+        dadosUsuario = [usuario.senha, usuario.tipo, usuario.login];
+    }
 
     db.execute(conn, query, dadosUsuario)
         .then((result) => {
