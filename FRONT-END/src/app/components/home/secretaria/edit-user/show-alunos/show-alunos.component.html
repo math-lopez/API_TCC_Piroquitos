@@ -1,0 +1,41 @@
+<div *ngIf="!modeEdit" class="showStudents">
+    <h1 class="titlePage">usuários</h1>
+    <div class="containerTable">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+          <td mat-cell *matCellDef="let row" (click)="editStudent(row)"> {{row.login}} </td>
+        </ng-container>
+    
+        <!-- Progress Column -->
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> nome </th>
+          <td mat-cell *matCellDef="let row" (click)="editStudent(row)"> {{row.nome}} </td>
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="tipo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> tipo </th>
+          <td mat-cell *matCellDef="let row" (click)="editStudent(row)"> {{row.tipo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="opcoes">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> opções </th>
+          <td mat-cell *matCellDef="let row"> 
+            <span class="material-icons" style="color: orange;" [matTooltip]="'excluir'" (click)="deleteAula(row)">
+            delete_forever
+            </span>
+          </td>
+        </ng-container>
+    
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="cursor: pointer;"></tr>
+      </table>
+    
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, dataSource.data?.length]"></mat-paginator>
+      </div>
+</div>
+<app-edit-user *ngIf="modeEdit" [user]="userActive" (back)="onBack($event)"></app-edit-user>

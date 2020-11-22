@@ -1,0 +1,11 @@
+@import '../../../../styles';
+
+#iconAdd{
+    font-size: 2rem; 
+    cursor: pointer;
+    transition: all .3s;
+}
+
+#iconAdd:hover{
+    transform: scale(1.2, 1.2);
+}

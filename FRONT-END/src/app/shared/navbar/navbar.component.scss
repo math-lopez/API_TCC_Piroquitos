@@ -1,0 +1,66 @@
+.mat-toolbar-primary {
+  background-color: #8097ad;
+}
+.mat-toolbar-secundary {
+  background-color: #254a6d;
+}
+
+.title {
+  color: rgb(255, 208, 0);
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-left: 6rem;
+  letter-spacing: 0.7rem;
+  transition: all 0.5s;
+}
+
+#menu ul {
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  margin: 5rem;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.btnsRight {
+    margin-top: 0.7rem;
+    margin-left: 73%;
+    margin-right: 27%;
+    transition: all .5s;
+}
+
+.btnsRight > button{
+    color: white;
+}
+
+.btnsRight:hover{
+    button{
+        transition: all .5s;
+    }
+    button:hover{
+        color: red;
+    }
+    transform: scale(1.3,1.3);
+}
+
+a.active {
+  color: green;
+}
+
+#menu ul li {
+  display: inline;
+  margin: 0rem 1rem;
+}
+
+#menu ul li > a {
+  text-decoration: none;
+  color: white;
+  transition: all 0.5s;
+}
+
+#menu ul li > a:hover {
+  letter-spacing: 0.2rem;
+}
