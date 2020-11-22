@@ -19,6 +19,18 @@ helper.toUsuario = function (body){
     }
 }
 
+helper.toAluno = function (body){
+    if(body.nome != undefined && body.ra != undefined && body.usuarioId_FK != undefined   ){ //situação para cadastrar o aluno
+        return {"nome": body.nome, "ra": body.ra, "usuarioId_FK": body.usuarioId_FK};
+    }else if(body.ra != undefined && body.nome == undefined && body.usuarioId_FK == undefined){ //situação para buscar e remover o aluno
+        return {"ra": body.ra}
+    }else if(body.nome != undefined && body.ra != undefined && body.usuarioId_FK == undefined){ //situação para alterar o aluno
+        return {"nome": body.nome, "ra": body.ra}
+    }else{
+        return {};
+    }
+}
+
 // Helper para definir o objeto de salas da maneira esperada.
 helper.toSala = function(body){
     if(body.salaId == undefined && body.idEsp == undefined && body.ipEsp == undefined){
