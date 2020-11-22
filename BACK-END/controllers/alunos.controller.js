@@ -32,7 +32,7 @@ controller.getAluno = async function (response, aluno) {
         .then((result) => {
             if(!result.length){
                 console.log("Aluno não encontrado.");
-                response.status(403)
+                response.status(404)
                 .json({ Erro: "Aluno não encontrado."})
                 .end();
             }
