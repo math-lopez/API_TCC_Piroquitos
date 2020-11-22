@@ -4,7 +4,7 @@
     <div class="inputsLogin">
         <mat-form-field appearance="fill" style="margin-bottom: 2.5rem">
           <mat-label>Usuário</mat-label>
-          <input matInput [formControl]="user" />
+          <input matInput [formControl]="user"  autofocus/>
           <mat-error *ngIf="user.errors?.required">Insira seu usuário</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">

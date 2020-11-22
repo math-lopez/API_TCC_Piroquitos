@@ -9,3 +9,14 @@
 #iconAdd:hover{
     transform: scale(1.2, 1.2);
 }
+
+.iconOptions{
+    margin: 0.5rem 0rem;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.iconOptions:hover{
+    transform: scale(1.2, 1.2);
+
+}

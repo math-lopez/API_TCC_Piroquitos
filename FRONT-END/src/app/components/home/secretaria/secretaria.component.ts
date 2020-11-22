@@ -57,9 +57,12 @@ export class SecretariaComponent implements OnInit {
         tipo: this.cadAluno.value.tipo,
       })
       .subscribe((resp) => {
-        if(this.cadAluno.value.tipo === 'aluno') this.cadastrarAluno();
-        else if(this.cadAluno.value.tipo === 'professor') console.log('professor');
-        else if(this.cadAluno.value.tipo === 'secretaria') console.log('secretaria');
+        if(this.cadAluno.value.tipo === 'aluno'){
+          this.cadastrarAluno();
+        }
+        else{
+          this.cadastrarFunc();
+        }        
       }, error => {
         this._snackBar.open('Erro ao salvar o usuário', 'fechar', {
           duration: 4000,
@@ -76,6 +79,22 @@ export class SecretariaComponent implements OnInit {
       login_FK: this.cadAluno.value.login
     }).subscribe(resp => {
       console.log(resp);
+      this._snackBar.open('Usuário criado com sucesso', 'fechar', {
+        duration: 4000,
+        horizontalPosition: this.horizontal,
+        verticalPosition: this.vertical,
+      });
+      this.clearForm();
+    });
+  }
+
+  cadastrarFunc(){
+    this.secServ.cadFunc({
+      nome: this.cadAluno.value.nome,
+      funcional: this.cadAluno.value.funcRA,
+      login_FK: this.cadAluno.value.login
+    }).subscribe(resp => {
+      console.log(resp);
       this.tookPhoto = true;
       this._snackBar.open('Usuário criado com sucesso', 'fechar', {
         duration: 4000,
@@ -83,7 +102,7 @@ export class SecretariaComponent implements OnInit {
         verticalPosition: this.vertical,
       });
       this.clearForm();
-    })
+    });
   }
 
   clearForm() {
@@ -91,6 +110,11 @@ export class SecretariaComponent implements OnInit {
     this.cadAluno.markAsUntouched();
     this.cadAluno.updateValueAndValidity();
     this.cadAluno.reset();
+  }
+
+  changeTipo(event){
+    if(event === 'aluno')this.tookPhoto = true;
+    else this.tookPhoto = false;
   }
 
   capturePhoto() {
