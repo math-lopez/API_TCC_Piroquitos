@@ -26,6 +26,7 @@ import { EditUserComponent } from './secretaria/edit-user/edit-user.component';
 import { EditPresencaComponent } from './prof/edit-presenca/edit-presenca.component';
 import { ShowAlunosComponent } from './secretaria/edit-user/show-alunos/show-alunos.component';
 import { DialogConfirmMudancaPresencaComponent } from './prof/dialog-confirm-mudanca-presenca/dialog-confirm-mudanca-presenca.component';
+import { AlunoComponent } from './aluno/aluno.component';
 
 
 
@@ -38,7 +39,7 @@ import { DialogConfirmMudancaPresencaComponent } from './prof/dialog-confirm-mud
     ProfComponent, 
     EditPresencaComponent, 
     AddAulaComponent, 
-    DialogConfirmMudancaPresencaComponent
+    DialogConfirmMudancaPresencaComponent, AlunoComponent
   ],
   imports: [
     CommonModule,
