@@ -22,6 +22,7 @@ helper.toUsuario = function (body){
     }
 }
 
+// Helper para definir o objeto de aluno da maneira esperada.
 helper.toAluno = function (body){
     if(body.alunoId == undefined && body.nome != undefined && body.ra != undefined && body.login_FK != undefined){
         return {"nome": body.nome, "ra": body.ra, "login_FK": body.login_FK};
@@ -69,6 +70,11 @@ helper.toFunc = function (body){
     else if(body.funcionarioId != undefined && body.nome != undefined && body.funcional != undefined && body.login_FK != undefined){
         return { "funcionarioId": body.funcionarioId, "nome": body.nome, "funcional": body.funcional, "login_FK": body.login_FK };
     }
+}
+
+// Helper para definir o objeto de presenca (Aluno_TB_has_Aulas_TB) da maneira esperada.
+helper.toPresenca = function (body){
+    return { "alunoId_FK": body.alunoId_FK, "aulaId_FK": body.aulaId_FK, "presenca": body.presenca };
 }
 
 // Exportando módulo.
