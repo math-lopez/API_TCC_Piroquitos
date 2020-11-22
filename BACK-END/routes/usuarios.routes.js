@@ -10,7 +10,7 @@ router.post('/add', async function(req, res) {
     controller.novoUsuario(res, usuario);
 });
 
-// Endpoint para listar usuários.
+// Endpoint para validar usuários.
 router.post('/validate', async function(req, res) {
     const usuario = params2json.toUsuario(req.body);
     controller.validaUsuario(res, usuario.login, usuario.senha);

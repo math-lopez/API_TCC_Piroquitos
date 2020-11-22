@@ -40,9 +40,9 @@ app.get('/face-api-test', async function (req, res) {
  
 // Configuração dos endpoints para as APIs.
 app.use('/usuarios', usuarios_routes);
-// app.use('/alunos', alunos_routes);
+// app.use('/alunos', alunos_routes); // Lucca
 // app.use('/funcionarios', func_routes);
-// app.use('/salas', salas_routes);
+app.use('/salas', salas_routes);
 // app.use('/aulas', aulas_routes);
 // app.use('/presenca', presenca_routes);
 

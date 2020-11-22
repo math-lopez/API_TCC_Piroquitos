@@ -4,6 +4,7 @@ const db = require("../services/database.service");
 // Declaração do módulo que será exportado.
 let controller = {};
 
+// Método para cadastro de novo usuário.
 controller.novoUsuario = async function (response, dadosUsuario) {
     const conn = await db.conn();
     const query = "INSERT INTO Usuarios_TB SET ?";
@@ -22,6 +23,7 @@ controller.novoUsuario = async function (response, dadosUsuario) {
         });
 }
 
+// Método para validação (login) de usuário.
 controller.validaUsuario = async function (response, usuario, senha) {
     const conn = await db.conn();
     const query = `SELECT login, tipo FROM Usuarios_TB WHERE login='${usuario}' AND senha='${senha}';`;
@@ -49,6 +51,7 @@ controller.validaUsuario = async function (response, usuario, senha) {
         });
 }
 
+// Método para consulta de usuário pelo login.
 controller.getUsuario = async function (response, usuario) {
     const conn = await db.conn();
     const query = `SELECT login, tipo FROM Usuarios_TB WHERE login='${usuario}';`;
@@ -76,6 +79,7 @@ controller.getUsuario = async function (response, usuario) {
         });
 }
 
+// Método para edição de usuário.
 controller.editaUsuario = async function (response, usuario) {
     const conn = await db.conn();
     const query = "UPDATE Usuarios_TB SET senha=?, tipo=? Where login=?";
@@ -95,6 +99,7 @@ controller.editaUsuario = async function (response, usuario) {
         });
 }
 
+// Método para remoção de usuário.
 controller.removeUsuario = async function (response, usuario) {
     const conn = await db.conn();
     const query = "DELETE FROM Usuarios_TB WHERE login=?";
