@@ -82,4 +82,8 @@ export class ProfComponent implements OnInit {
       console.log(result);
     });
   }
+
+  initAula(row){
+    console.log(row);
+  }
 }
