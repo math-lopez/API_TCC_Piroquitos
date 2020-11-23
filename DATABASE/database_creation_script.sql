@@ -42,3 +42,15 @@ presenca BOOLEAN,
 PRIMARY KEY (alunoId_FK, aulaId_FK),
 CONSTRAINT FK_AlunoAula FOREIGN KEY (alunoId_FK) REFERENCES Aluno_TB(alunoId),
 CONSTRAINT FK_AulaAluno FOREIGN KEY (aulaId_FK) REFERENCES Aulas_TB(aulaId));
+
+DELIMITER $
+CREATE TRIGGER aulas_before_delete BEFORE DELETE ON Aulas_TB FOR EACH ROW
+BEGIN
+   DELETE FROM Aluno_TB_has_Aulas_TB WHERE aulaId_FK = OLD.aulaId;
+END$
+
+CREATE TRIGGER alunos_before_delete BEFORE DELETE ON Aluno_TB FOR EACH ROW
+BEGIN
+   DELETE FROM Aluno_TB_has_Aulas_TB WHERE alunoId_FK = OLD.alunoId;
+END$
+DELIMITER ;
