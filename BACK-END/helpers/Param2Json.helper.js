@@ -1,4 +1,4 @@
-// const { IFFT } = require("@tensorflow/tfjs-node");
+const { IFFT } = require("@tensorflow/tfjs-node");
 
 // Declarando módulo.
 let helper = {};
@@ -22,6 +22,7 @@ helper.toUsuario = function (body){
     }
 }
 
+// Helper para definir o objeto de aluno da maneira esperada.
 helper.toAluno = function (body){
     if(body.alunoId == undefined && body.nome != undefined && body.ra != undefined && body.login_FK != undefined){
         return {"nome": body.nome, "ra": body.ra, "login_FK": body.login_FK};
@@ -68,6 +69,25 @@ helper.toFunc = function (body){
     }
     else if(body.funcionarioId != undefined && body.nome != undefined && body.funcional != undefined && body.login_FK != undefined){
         return { "funcionarioId": body.funcionarioId, "nome": body.nome, "funcional": body.funcional, "login_FK": body.login_FK };
+    }
+}
+
+// Helper para definir o objeto de aulas da maneira esperada.
+helper.toAula = function (body){
+    if(body.aulaId == undefined && body.nome == undefined && body.inicio_Aula == undefined && body.duracao_Min == undefined && body.profid_FK == undefined && body.salaId_FK == undefined){
+        return {};
+    }
+    else if(body.aulaId == undefined && body.nome != undefined && body.inicio_Aula != undefined && body.duracao_Min != undefined && body.profid_FK != undefined && body.salaId_FK != undefined){
+        return {"nome": body.nome, "inicio_Aula": body.inicio_Aula, "duracao_Min": body.duracao_Min, "profid_FK": body.profid_FK, "salaId_FK": body.salaId_FK}
+    }
+    else if(body.aulaId != undefined && body.nome == undefined && body.inicio_Aula == undefined && body.duracao_Min == undefined && body.profid_FK == undefined && body.salaId_FK == undefined){
+        return { "aulaId": body.aulaId };
+    }
+    else if(body.aulaId == undefined && body.nome == undefined && body.inicio_Aula == undefined && body.duracao_Min == undefined && body.profid_FK != undefined && body.salaId_FK == undefined){
+        return { "profid_FK": body.profid_FK };
+    }
+    else if(body.aulaId != undefined && body.nome != undefined && body.inicio_Aula != undefined && body.duracao_Min != undefined && body.profid_FK != undefined && body.salaId_FK != undefined){
+        return {"aulaId": body.aulaId, "nome": body.nome, "inicio_Aula": body.inicio_Aula, "duracao_Min": body.duracao_Min, "profid_FK": body.profid_FK, "salaId_FK": body.salaId_FK}
     }
 }
 
