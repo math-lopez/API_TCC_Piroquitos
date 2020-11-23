@@ -91,5 +91,10 @@ helper.toAula = function (body){
     }
 }
 
+// Helper para definir o objeto de presenca (Aluno_TB_has_Aulas_TB) da maneira esperada.
+helper.toPresenca = function (body){
+    return { "alunoId_FK": body.alunoId_FK, "aulaId_FK": body.aulaId_FK, "presenca": body.presenca };
+}
+
 // Exportando módulo.
 module.exports = helper;

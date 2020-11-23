@@ -12,8 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { LoginModule } from './components/login/login.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthService } from './shared/auth.service';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,13 @@ import { RouterModule } from '@angular/router';
     LoginModule,
     SharedModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: LoadingInterceptor, 
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

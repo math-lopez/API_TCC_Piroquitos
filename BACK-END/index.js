@@ -13,7 +13,7 @@ const presenca_routes = require('./routes/presenca.routes');
 
 // TODO: TIRAR ESSAS SERVICES DAQUI PARA UMA CONTROLLER. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
 const EspService = require('./services/EspService.service');
-// const FaceRecognitionService = require("./services/FaceRecognition.service");
+const FaceRecognitionService = require("./services/FaceRecognition.service");
  
 // Declaração de constante para controle da porta do back-end.
 const port = 3000;
@@ -46,7 +46,7 @@ app.use('/alunos', alunos_routes);
 app.use('/funcionarios', func_routes);
 app.use('/salas', salas_routes);
 app.use('/aulas', aulas_routes);
-// app.use('/presenca', presenca_routes);
+app.use('/presenca', presenca_routes);
 
 // Subindo o servidor para escutar na porta declarada.
 app.listen(port, () => console.log(`Restful APIs do Back-end escutando na porta ${port}.`));

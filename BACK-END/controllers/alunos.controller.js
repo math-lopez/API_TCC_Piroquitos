@@ -174,8 +174,8 @@ controller.removeAlunoByLogin = async function (response, login) {
             }else{
                 console.log("O aluno informado não existe para deleção.")
                 response.status(404)
-                .json({ "Erro": "O aluno informado não existe para deleção."} )
-                .end();
+                    .json({ "Erro": "O aluno informado não existe para deleção."} )
+                    .end();
             }
         })
         .catch((err) => {

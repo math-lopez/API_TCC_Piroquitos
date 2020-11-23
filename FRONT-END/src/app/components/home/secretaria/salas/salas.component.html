@@ -1,0 +1,65 @@
+<div *ngIf="!modeEdit" class="showStudents">
+    <h1 class="titlePage">
+      salas
+      <div style="float: right">
+        <span
+          id="iconAdd"
+          class="material-icons"
+          [matTooltip]="'adicionar aula'"
+          (click)="openDialogAddSala()"
+        >
+          add_circle_outline
+        </span>
+      </div>
+    </h1>
+    <div class="contentPage">
+      <table mat-table [dataSource]="dataSource">  
+        <ng-container matColumnDef="idEsp">
+          <th mat-header-cell *matHeaderCellDef>ESP32 CAM</th>
+          <td mat-cell *matCellDef="let row" (click)="editStudent(row)">
+            {{ row.idEsp }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="ipEsp">
+          <th mat-header-cell *matHeaderCellDef>IP ESP32 CAM</th>
+          <td mat-cell *matCellDef="let row" (click)="editStudent(row)">
+            {{ row.ipEsp }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="opcoes">
+          <th mat-header-cell *matHeaderCellDef>opções</th>
+          <td mat-cell *matCellDef="let row">
+            <span
+              class="material-icons iconOptions"
+              style="color: orange"
+              [matTooltip]="'excluir'"
+              (click)="deleteSala(row)"
+            >
+              delete_forever
+            </span>
+            <span
+              class="material-icons iconOptions"
+              style="color: #23395b"
+              [matTooltip]="'alterar'"
+              (click)="updateSala(row)"
+            >
+              edit
+            </span>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          style="cursor: pointer"
+        ></tr>
+      </table>
+  
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 25, dataSource?.data?.length]"
+      ></mat-paginator>
+    </div>
+  </div>

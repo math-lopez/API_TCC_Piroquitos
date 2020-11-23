@@ -97,9 +97,17 @@ controller.editaUsuario = async function (response, usuario) {
 
     db.execute(conn, query, dadosUsuario)
         .then((result) => {
-            console.log("Edição de usuário realizada com sucesso.");
-            response.status(200)
-                .end();
+            if(result.affectedRows > 0){
+                console.log("Edição de usuário realizada com sucesso.");
+                response.status(200)
+                    .end();
+            }
+            else{
+                console.log("O usuário informado não existe para alteração.")
+                response.status(404)
+                    .json({ "Erro": "O usuário informado não existe para alteração."} )
+                    .end();
+            }
         })
         .catch((err) => {
             console.log("Houve um erro na edição do usuário: " + err)
@@ -116,9 +124,17 @@ controller.removeUsuario = async function (response, usuario) {
 
     db.execute(conn, query, [usuario.login])
         .then((result) => {
-            console.log("Remoção de usuário realizada com sucesso.");
-            response.status(200)
-                .end();
+            if(result.affectedRows > 0){
+                console.log("Remoção de usuário realizada com sucesso.");
+                response.status(200)
+                    .end();
+            }
+            else{
+                console.log("O usuário informado não existe para deleção.")
+                response.status(404)
+                    .json({ "Erro": "O usuário informado não existe para deleção."} )
+                    .end();
+            }
         })
         .catch((err) => {
             console.log("Houve um erro na remoção do usuário: " + err)

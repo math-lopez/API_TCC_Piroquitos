@@ -1,0 +1,30 @@
+<div class="contentPage">
+    <h1 class="titlePage">adicionar sala </h1>
+        <div>
+          <form [formGroup]="cadSala">
+            <mat-form-field appearance="fill" style="width: 95%;">
+              <mat-label>ID ESP32 CAM</mat-label>
+              <input matInput type="number" formControlName="idEsp" />
+              <mat-error *ngIf="cadSala.controls.idEsp.errors?.required"
+                >campo obrigatório</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="fill" style=" width: 95%;">
+                <mat-label>IP ESP32 CAM</mat-label>
+                <input matInput type="text" formControlName="ipEsp">
+                <mat-error *ngIf="cadSala.controls.ipEsp.errors?.required"
+                >campo obrigatório</mat-error
+              >
+              </mat-form-field>
+          </form>
+
+          <div class="btnAction">
+          <button mat-raised-button (click)="dialogRef.close()" >
+            cancelar
+          </button>
+          <button mat-raised-button class="btnActionSec" (click)="addSala()">
+            {{ modeUpdate? 'atualizar' : 'adicionar' }}
+          </button>
+          </div>
+        </div>
+      </div>

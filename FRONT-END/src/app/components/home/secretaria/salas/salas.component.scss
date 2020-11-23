@@ -1,0 +1,26 @@
+@import '../../../../../styles';
+
+#iconAdd{
+    font-size: 2rem; 
+    cursor: pointer;
+    transition: all .3s;
+}
+
+#iconAdd:hover{
+    transform: scale(1.2, 1.2);
+}
+
+.iconOptions{
+    margin: 0.5rem 0rem;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.iconOptions:hover{
+    transform: scale(1.2, 1.2);
+
+}
+
+::ng-deep .mat-button-wrapper > svg{
+    color: #23395B !important;
+}
