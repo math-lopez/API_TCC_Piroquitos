@@ -74,20 +74,20 @@ helper.toFunc = function (body){
 
 // Helper para definir o objeto de aulas da maneira esperada.
 helper.toAula = function (body){
-    if(body.aulaId == undefined && body.nome == undefined && body.inicio_Aula == undefined && body.duracao_Min == undefined && body.profid_FK == undefined && body.salaId_FK == undefined){
+    if(body.aulaId == undefined && body.nome == undefined && body.inicio_Aula == undefined && body.duracao_Min == undefined && body.profId_FK == undefined && body.salaId_FK == undefined){
         return {};
     }
-    else if(body.aulaId == undefined && body.nome != undefined && body.inicio_Aula != undefined && body.duracao_Min != undefined && body.profid_FK != undefined && body.salaId_FK != undefined){
-        return {"nome": body.nome, "inicio_Aula": body.inicio_Aula, "duracao_Min": body.duracao_Min, "profid_FK": body.profid_FK, "salaId_FK": body.salaId_FK}
+    else if(body.aulaId == undefined && body.nome != undefined && body.inicio_Aula != undefined && body.duracao_Min != undefined && body.profId_FK != undefined && body.salaId_FK != undefined){
+        return {"nome": body.nome, "inicio_Aula": body.inicio_Aula, "duracao_Min": body.duracao_Min, "profId_FK": body.profId_FK, "salaId_FK": body.salaId_FK}
     }
-    else if(body.aulaId != undefined && body.nome == undefined && body.inicio_Aula == undefined && body.duracao_Min == undefined && body.profid_FK == undefined && body.salaId_FK == undefined){
+    else if(body.aulaId != undefined && body.nome == undefined && body.inicio_Aula == undefined && body.duracao_Min == undefined && body.profId_FK == undefined && body.salaId_FK == undefined){
         return { "aulaId": body.aulaId };
     }
-    else if(body.aulaId == undefined && body.nome == undefined && body.inicio_Aula == undefined && body.duracao_Min == undefined && body.profid_FK != undefined && body.salaId_FK == undefined){
-        return { "profid_FK": body.profid_FK };
+    else if(body.aulaId == undefined && body.nome == undefined && body.inicio_Aula == undefined && body.duracao_Min == undefined && body.profId_FK != undefined && body.salaId_FK == undefined){
+        return { "profId_FK": body.profId_FK };
     }
-    else if(body.aulaId != undefined && body.nome != undefined && body.inicio_Aula != undefined && body.duracao_Min != undefined && body.profid_FK != undefined && body.salaId_FK != undefined){
-        return {"aulaId": body.aulaId, "nome": body.nome, "inicio_Aula": body.inicio_Aula, "duracao_Min": body.duracao_Min, "profid_FK": body.profid_FK, "salaId_FK": body.salaId_FK}
+    else if(body.aulaId != undefined && body.nome != undefined && body.inicio_Aula != undefined && body.duracao_Min != undefined && body.profId_FK != undefined && body.salaId_FK != undefined){
+        return {"aulaId": body.aulaId, "nome": body.nome, "inicio_Aula": body.inicio_Aula, "duracao_Min": body.duracao_Min, "profId_FK": body.profId_FK, "salaId_FK": body.salaId_FK}
     }
 }
 
