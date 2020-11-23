@@ -10,11 +10,10 @@ export class ProfService {
   constructor(private http: HttpClient) { }
 
   getProf(login){
-    return this.http.post(`${environment.API_URL}funcionarios/searchByLogin`, {login_FK: login});
+    return this.http.post<any>(`${environment.API_URL}funcionarios/searchByLogin`, {login_FK: login});
   }
 
   getAlunosPorAula(profId, aulaId){
-    console.log(profId, aulaId)
     return this.http.post(`${environment.API_URL}custom/alunosPorAula`, {
       profId_FK: profId,
       aulaId: aulaId});
@@ -31,5 +30,10 @@ export class ProfService {
   getAulas(prof){
     console.log(prof)
     return this.http.post<any[]>(`${environment.API_URL}aulas/searchByIdProf`, {profid_FK: prof.funcionarioId});
+  }
+
+  addAula(aula){
+    console.log(aula);
+    return this.http.post(`${environment.API_URL}salas/add`, aula);
   }
 }

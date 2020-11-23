@@ -41,7 +41,7 @@ export class ProfComponent implements OnInit {
           setTimeout(() => {
             console.log(this.profAula)
             this.dataSource = new MatTableDataSource(this.profAula);
-          }, 500) 
+          }, 500); 
         });
       });
     });
@@ -54,7 +54,6 @@ export class ProfComponent implements OnInit {
       this.profServ
         .getAlunosPorAula(element.profId_FK, element.aulaId)
         .subscribe((r) => {
-          console.log(r);
           this.profAula.push({
             aula: element,
             alunos: r,
