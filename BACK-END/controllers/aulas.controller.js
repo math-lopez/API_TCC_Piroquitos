@@ -80,9 +80,9 @@ controller.getAulaById = async function (response, aulaId) {
 }
 
 // Método para busca de aula pelo Id do professor.
-controller.getAulaByIdProf = async function (response, profid_FK) {
+controller.getAulaByIdProf = async function (response, profId_FK) {
     const conn = await db.conn();
-    const query = `SELECT * FROM Aulas_TB WHERE profid_FK='${profid_FK}';`;
+    const query = `SELECT * FROM Aulas_TB WHERE profId_FK='${profId_FK}';`;
 
     db.select(conn, query)
         .then((result) => {
@@ -110,8 +110,8 @@ controller.getAulaByIdProf = async function (response, profid_FK) {
 // Método para edição de aula.
 controller.editaAula = async function (response, aula) {
     const conn = await db.conn();
-    const query = "UPDATE Aulas_TB SET nome=? , inicio_Aula=? , duracao_Min=? , profid_FK=? , salaId_FK=? Where aulaId=?";
-    const dadosAula = [aula.nome, aula.inicio_Aula, aula.duracao_Min, aula.profid_FK, aula.salaId_FK, aula.aulaId];
+    const query = "UPDATE Aulas_TB SET nome=? , inicio_Aula=? , duracao_Min=? , profId_FK=? , salaId_FK=? Where aulaId=?";
+    const dadosAula = [aula.nome, aula.inicio_Aula, aula.duracao_Min, aula.profId_FK, aula.salaId_FK, aula.aulaId];
 
     db.execute(conn, query, dadosAula)
         .then((result) => {
