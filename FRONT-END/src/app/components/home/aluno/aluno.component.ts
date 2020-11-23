@@ -24,9 +24,22 @@ export class AlunoComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource([]);
+    this.getInitPage();
+  }
+
+  getInitPage(){
+    this.dataSource = new MatTableDataSource([]);
     this.authServ.usuario.subscribe(resp => {
       this.user = resp;
-      this.alunoServ.getAulas(this.user.login);
+      this.alunoServ.getAluno({login_FK: this.user.login}).subscribe(resp => {
+        this.alunoServ.getAulas(resp.alunoId).subscribe(r => {
+          this.dataSource = new MatTableDataSource(r);
+          setTimeout(() =>{
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          }, 500);
+        });
+      });
     });
   }
 

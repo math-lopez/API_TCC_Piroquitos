@@ -29,11 +29,23 @@ export class ProfService {
 
   getAulas(prof){
     console.log(prof)
-    return this.http.post<any[]>(`${environment.API_URL}aulas/searchByIdProf`, {profid_FK: prof.funcionarioId});
+    return this.http.post<any[]>(`${environment.API_URL}aulas/searchByIdProf`, {profId_FK: prof.funcionarioId});
   }
 
   addAula(aula){
     console.log(aula);
-    return this.http.post(`${environment.API_URL}salas/add`, aula);
+    return this.http.post<any>(`${environment.API_URL}aulas/add`, aula);
+  }
+
+  addAluno(presenca){
+    return this.http.post(`${environment.API_URL}presenca/add`, presenca);
+  }
+
+  updateAula(aula){
+    console.log(aula);
+    return this.http.post<any>(`${environment.API_URL}aulas/update`, aula);
+  }
+  deleteAula(aulaId){
+    return this.http.post(`${environment.API_URL}aulas/removeById`, {aulaId: aulaId});
   }
 }
