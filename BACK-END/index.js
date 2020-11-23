@@ -10,6 +10,7 @@ const func_routes = require('./routes/func.routes');
 const salas_routes = require('./routes/salas.routes');
 const aulas_routes = require('./routes/aulas.routes');
 const presenca_routes = require('./routes/presenca.routes');
+const custom_routes = require('./routes/custom.routes');
 
 // TODO: TIRAR ESSAS SERVICES DAQUI PARA UMA CONTROLLER. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
 const EspService = require('./services/EspService.service');
@@ -47,6 +48,7 @@ app.use('/funcionarios', func_routes);
 app.use('/salas', salas_routes);
 app.use('/aulas', aulas_routes);
 app.use('/presenca', presenca_routes);
+app.use('/custom', custom_routes);
 
 // Subindo o servidor para escutar na porta declarada.
 app.listen(port, () => console.log(`Restful APIs do Back-end escutando na porta ${port}.`));

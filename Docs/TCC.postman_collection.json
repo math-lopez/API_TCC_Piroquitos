@@ -977,6 +977,110 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "/custom/",
+			"item": [
+				{
+					"name": "/custom/alunosPorAula/ - 200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"profId_FK\": 2,\r\n    \"aulaId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/custom/alunosPorAula/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"custom",
+								"alunosPorAula",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/custom/dadosAlunos/ - 200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/custom/dadosAlunos/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"custom",
+								"dadosAlunos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/custom/dadosFuncs/ - 200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/custom/dadosFuncs/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"custom",
+								"dadosFuncs",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/custom/aulasPorAluno/ - 200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"alunoId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/custom/aulasPorAluno/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"custom",
+								"aulasPorAluno",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
