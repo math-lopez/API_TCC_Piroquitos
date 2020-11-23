@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from 'src/app/shared/auth.service';
 import { AddAulaComponent } from './add-aula/add-aula.component';
 import { DialogConfirmMudancaPresencaComponent } from './dialog-confirm-mudanca-presenca/dialog-confirm-mudanca-presenca.component';
+import { ProfService } from './prof.service';
 
 @Component({
   selector: 'app-prof',
@@ -21,9 +22,10 @@ export class ProfComponent implements OnInit {
   modeEdit: boolean = false;
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['aula', 'qtdAlunos', 'dataAula', 'opcoes'];
-  constructor(private authServ: AuthService, public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private profServ: ProfService) {}
 
   ngOnInit(): void {
+    // thi
     this.getAulas();
   }
 
@@ -41,9 +43,10 @@ export class ProfComponent implements OnInit {
   }
 
   getAulas() {
-    this.authServ.aulas.subscribe((aulas) => {
-      this.dataSource = new MatTableDataSource(aulas);
-    });
+    this.profServ.getAulas(1)
+    .subscribe(resp => {
+
+    })
 
     setTimeout(() => {
       this.dataSource.sort = this.sort;
