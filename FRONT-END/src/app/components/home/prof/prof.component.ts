@@ -8,6 +8,10 @@ import { AddAulaComponent } from './add-aula/add-aula.component';
 import { DialogConfirmMudancaPresencaComponent } from './dialog-confirm-mudanca-presenca/dialog-confirm-mudanca-presenca.component';
 import { ProfService } from './prof.service';
 
+export interface ProfAula {
+  aula: any;
+  alunos: any;
+}
 @Component({
   selector: 'app-prof',
   templateUrl: './prof.component.html',
@@ -17,18 +21,46 @@ export class ProfComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  profAula: ProfAula[] = [];
   aulaActive: any;
   dateAtual = new Date();
   modeEdit: boolean = false;
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['aula', 'qtdAlunos', 'dataAula', 'opcoes'];
-  constructor(public dialog: MatDialog, private profServ: ProfService) {}
+  constructor(
+    public dialog: MatDialog,
+    private profServ: ProfService,
+    private authServ: AuthService
+  ) {}
 
   ngOnInit(): void {
-    // thi
-    this.getAulas();
+    this.authServ.usuario.subscribe((resp) => {
+      this.profServ.getProf(resp.login).subscribe((res) => {
+        this.profServ.getAulas(res).subscribe(async (re) => {
+          let teste = await this.addAlunosAula(re);
+          setTimeout(() => {
+            console.log(this.profAula)
+            this.dataSource = new MatTableDataSource(this.profAula);
+          }, 500); 
+        });
+      });
+    });
+    this.dataSource = new MatTableDataSource(this.profAula);
+    // this.getAulas();
   }
 
+  addAlunosAula(re){
+    re.forEach((element) => {
+      this.profServ
+        .getAlunosPorAula(element.profId_FK, element.aulaId)
+        .subscribe((r) => {
+          this.profAula.push({
+            aula: element,
+            alunos: r,
+          });
+        });
+    });
+  }
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -43,10 +75,7 @@ export class ProfComponent implements OnInit {
   }
 
   getAulas() {
-    this.profServ.getAulas(1)
-    .subscribe(resp => {
-
-    })
+    this.profServ.getAulas(1).subscribe((resp) => {});
 
     setTimeout(() => {
       this.dataSource.sort = this.sort;
@@ -86,7 +115,7 @@ export class ProfComponent implements OnInit {
     });
   }
 
-  initAula(row){
+  initAula(row) {
     console.log(row);
   }
 }

@@ -24,7 +24,7 @@ router.post('/searchById', async function(req, res) {
 // Endpoint para buscar aula por Id do professor.
 router.post('/searchByIdProf', async function(req, res) {
     const aula = params2json.toAula(req.body);
-    controller.getAulaByIdProf(res, aula.profid_FK);
+    controller.getAulaByIdProf(res, aula.profId_FK);
 });
 
 // Endpoint para editar aula.
