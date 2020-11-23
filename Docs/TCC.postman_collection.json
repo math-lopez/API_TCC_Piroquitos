@@ -1081,6 +1081,183 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "/aulas/",
+			"item": [
+				{
+					"name": "http://localhost:3000/aulas/add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"tcc 2\",\r\n    \"inicio_Aula\": \"2020-11-22 19:10:00\",\r\n    \"duracao_Min\": 60,\r\n    \"profId_FK\": 2,\r\n    \"salaId_FK\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/aulas/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"aulas",
+								"add"
+							]
+						},
+						"description": "Endpoint para criar aula"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/aulas/list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/aulas/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"aulas",
+								"list"
+							]
+						},
+						"description": "Endpoint para listar as aulas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/aulas/searchById",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"aulaId\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/aulas/searchById",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"aulas",
+								"searchById"
+							]
+						},
+						"description": "Endpoint para buscar aulas pelo id"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/aulas/searchByIdProf",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"profId_FK\" : 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/aulas/searchByIdProf",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"aulas",
+								"searchByIdProf"
+							]
+						},
+						"description": "Endpoint para buscar aulas pelo id do professor"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/aulas/update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"aulaId\": 6,\r\n    \"nome\": \"caralho\",\r\n    \"inicio_Aula\": \"2020-11-23 18:00:00\",\r\n    \"duracao_Min\": 120,\r\n    \"profId_FK\": 3,\r\n    \"salaId_FK\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/aulas/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"aulas",
+								"update"
+							]
+						},
+						"description": "Endpoint para alterar as aulas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/aulas/removeById",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"aulaId\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/aulas/removeById",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"aulas",
+								"removeById"
+							]
+						},
+						"description": "Endpoint para remover a aula pelo id"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}

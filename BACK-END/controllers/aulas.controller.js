@@ -13,6 +13,7 @@ controller.novaAula = async function (response, aula) {
         .then((result) => {
             console.log("Cadastro de aula realizada com sucesso.");
             response.status(200)
+                .json({ "aulaId": result.insertId })
                 .end();
         })
         .catch((err) => {

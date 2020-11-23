@@ -4,32 +4,46 @@ const fs = require("fs");
 const request = require('request');
 
 class EspService {
-  initService(ra, idPhoto) {
-    let path = this.getPath(ra, idPhoto);
-     this.takePhoto(path);
+  // Flag - == 0 - Cadastro, != 0 - Presenca.
+  initService(ra_ou_aulaId, flag, response) {
+    if(flag==0){
+      let path = this.getPathCadastro(ra_ou_aulaId);
+      this.takePhoto(path, response);
+    }
+    else{
+      let path = this.getPathPresenca(ra_ou_aulaId);
+      this.takePhoto(path, response);
+    }
   }
 
-  getPath(ra, idPhoto) {
+  getPathCadastro(ra) {
     let p = {};
     p.dir = path.join(__dirname, "..", "photos", ra);
-    p.file = path.join(__dirname, "..", "photos", ra, `cad_${ra}_${idPhoto}.jpg`);
+    p.file = path.join(__dirname, "..", "photos", ra, `cad_${ra}.jpg`);
     return p;
   }
 
-  takePhoto(path) {
+  getPathPresenca(aulaId) {
+    let p = {};
+    p.dir = path.join(__dirname, "..", "photos", "AULAS");
+    p.file = path.join(__dirname, "..", "photos", "AULAS", `presenca_${aulaId}.jpg`);
+    return p;
+  }
+
+  takePhoto(path, response) {
     request.get("http://192.168.0.108/capture")
         .on("response", (response) => {
             if(response.statusCode === 200){
-                console.log("Took Photo");
+                console.log("Foto tirada pelo ESP.");
                 setTimeout(() => {
                     let esp = new EspService();
-                    esp.getPhotoEsp(path);
+                    esp.getPhotoEsp(path, response);
                 }, 10000);
             }
         });
   }
 
-  getPhotoEsp(path) {
+  getPhotoEsp(path, res) {
     function callback(response) {
       var body = "";
 
@@ -41,7 +55,7 @@ class EspService {
 
       response.on("end", function () {
         let esp = new EspService();
-        esp.savePhotoStudent(path, body);
+        esp.savePhotoStudent(path, body, res);
       });
     }
 
@@ -49,18 +63,31 @@ class EspService {
     req.end();
   }
 
-  savePhotoStudent(path, data) {
+  savePhotoStudent(path, data, res) {
     fs.mkdir(path.dir, { recursive: true }, function (err) {
       if (err) {
         console.log(err);
+        console.log("Erro ao criar pasta.");
+        res.status(500)
+            .json({ "Erro": "Erro ao criar pasta." })
+            .end();
         return;
       }
 
       fs.writeFile(path.file, data, "binary", function (erro) {
         if (erro) {
-          throw erro;
+          console.log(erro);
+          console.log("Erro ao armazenar foto.");
+          res.status(500)
+              .json({ "Erro": "Erro ao armazenar foto." })
+              .end();
+          return;
         }
-        console.log("Arquivo salvo");
+
+        console.log("Foto salva no caminho: " + path.file);
+        res.status(200)
+            .json({ "Message": "Foto do aluno cadastrada com sucesso." })
+            .end();
       });
     });
   }
