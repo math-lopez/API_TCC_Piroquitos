@@ -83,20 +83,39 @@ export class AddAulaComponent implements OnInit {
 
   addAula() {
     var aula = this.cadAula.value;
+    console.log(this.data);
     this.authServ.usuario.subscribe((resp) => {
       this.profServ.getProf(resp.login).subscribe((res) => {
-        console.log(res);
-        console.log(aula);
-        this.profServ.addAula({
-          nome: aula.aula,
-          inicio_Aula: aula.inicioAula,
-          duracao_Min: 75,
-          profid_FK: res.funcionarioId,
-          salaId_FK: aula.sala
-        }).subscribe(r => {
-          console.log(r);
-          this.dialogRef.close();
-        })
+        if(this.data == undefined){
+          this.profServ.addAula({
+            nome: aula.aula,
+            inicio_Aula: aula.inicioAula,
+            duracao_Min: 75,
+            profId_FK: res.funcionarioId,
+            salaId_FK: aula.sala
+          }).subscribe(r => {
+            aula.alunos.forEach(element => {
+              console.log(element)
+            });
+            setTimeout(() => {
+              this.dialogRef.close()
+            }, 500);
+          });
+        }
+        else{
+          this.profServ.updateAula({
+            nome: aula.aula,
+            inicio_Aula: aula.inicioAula,
+            duracao_Min: 75,
+            profId_FK: res.funcionarioId,
+            salaId_FK: aula.sala,
+            aulaId: this.data.aula.aulaId
+          }).subscribe(resp => {
+            setTimeout(() => {
+              this.dialogRef.close()
+            }, 500);
+          })
+        }
       });
     });
   }

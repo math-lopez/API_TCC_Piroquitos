@@ -34,22 +34,11 @@ export class ProfComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authServ.usuario.subscribe((resp) => {
-      this.profServ.getProf(resp.login).subscribe((res) => {
-        this.profServ.getAulas(res).subscribe(async (re) => {
-          let teste = await this.addAlunosAula(re);
-          setTimeout(() => {
-            console.log(this.profAula)
-            this.dataSource = new MatTableDataSource(this.profAula);
-          }, 500); 
-        });
-      });
-    });
     this.dataSource = new MatTableDataSource(this.profAula);
-    // this.getAulas();
+    this.getAulas();
   }
 
-  addAlunosAula(re){
+  addAlunosAula(re) {
     re.forEach((element) => {
       this.profServ
         .getAlunosPorAula(element.profId_FK, element.aulaId)
@@ -61,10 +50,7 @@ export class ProfComponent implements OnInit {
         });
     });
   }
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-  }
+  ngAfterViewInit(): void {}
 
   editStudent(aula) {
     var timeAula = new Date(aula.dataAula);
@@ -75,12 +61,25 @@ export class ProfComponent implements OnInit {
   }
 
   getAulas() {
-    this.profServ.getAulas(1).subscribe((resp) => {});
+    this.profAula = [];
+    this.authServ.usuario.subscribe((resp) => {
+      this.profServ.getProf(resp.login).subscribe((res) => {
+        this.profServ.getAulas(res).subscribe(async (re) => {
+          let teste = await this.addAlunosAula(re);
+          setTimeout(() => {
+            console.log(this.profAula);
+            this.dataSource = new MatTableDataSource(this.profAula);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          }, 500);
+        });
+      });
+    });
 
     setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-    }, 200);
+    }, 500);
   }
 
   onBack(event) {
@@ -95,23 +94,33 @@ export class ProfComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      this.getAulas();
     });
   }
 
   updateAula(aula) {
-    this.dialog.open(AddAulaComponent, {
+    console.log(aula)
+    const dialogRef = this.dialog.open(AddAulaComponent, {
       data: aula,
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAulas();
+    })
   }
 
   deleteAula(aula) {
     const dialogRef = this.dialog.open(DialogConfirmMudancaPresencaComponent, {
       data: 'deseja excluir esta aula?',
     });
-
+    console.log(aula)
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      if(result){
+        this.profServ.deleteAula(aula.aula.aulaId)
+        .subscribe(resp => {
+          this.getAulas();
+        })
+      }
     });
   }
 

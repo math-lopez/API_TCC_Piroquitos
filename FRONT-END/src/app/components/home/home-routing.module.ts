@@ -15,8 +15,7 @@ const routes: Routes = [
   { path: 'editAluno', component: ShowAlunosComponent, pathMatch: 'full' },
   { path: 'salas', component: SalasComponent, pathMatch: 'full' },
   { path: 'prof', component: ProfComponent, pathMatch:'full' },
-  { path: 'aluno', component: AlunoComponent, pathMatch:'full' },
-  { path: 'aulas', component: AulasComponent, pathMatch: 'full' }
+  { path: 'aluno', component: AlunoComponent, pathMatch:'full' }
 ];
 
 @NgModule({

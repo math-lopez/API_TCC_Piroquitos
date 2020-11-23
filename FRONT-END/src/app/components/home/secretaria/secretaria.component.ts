@@ -78,7 +78,6 @@ export class SecretariaComponent implements OnInit {
       ra: this.cadAluno.value.funcRA,
       login_FK: this.cadAluno.value.login
     }).subscribe(resp => {
-      console.log(resp);
       this._snackBar.open('Usuário criado com sucesso', 'fechar', {
         duration: 4000,
         horizontalPosition: this.horizontal,

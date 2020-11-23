@@ -13,6 +13,14 @@ export class SecretariaService {
     return this.http.post<any[]>(`${environment.API_URL}salas/list`, {});
   }
 
+  getAllFunc(){
+    return this.http.post<any[]>(`${environment.API_URL}custom/dadosFuncs`, {});
+  }
+
+  getAllAlunos(){
+    return this.http.post<any[]>(`${environment.API_URL}custom/dadosAlunos`, {});
+  }
+
   cadSala(sala){
     console.log(sala);
     return this.http.post(`${environment.API_URL}salas/add`, sala);
@@ -46,6 +54,16 @@ export class SecretariaService {
   removeUser(user){
     console.log(user);
     return this.http.post(`${environment.API_URL}usuarios/remove`, user);
+  }
+
+  removeFunc(funcId){
+    console.log(funcId)
+    return this.http.post(`${environment.API_URL}funcionarios/removeById`, {funcionarioId: funcId});
+  }
+
+  removeAluno(alunoId){
+    console.log(alunoId)
+    return this.http.post(`${environment.API_URL}alunos/removeById`, {alunoId: alunoId});
   }
 
   removeSala(salaId){
