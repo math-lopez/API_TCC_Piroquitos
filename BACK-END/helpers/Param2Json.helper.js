@@ -96,5 +96,15 @@ helper.toPresenca = function (body){
     return { "alunoId_FK": body.alunoId_FK, "aulaId_FK": body.aulaId_FK, "presenca": body.presenca };
 }
 
+// Helper para definir o objeto de presenca (Aluno_TB_has_Aulas_TB) da maneira esperada.
+helper.toAulaAndProfId = function (body){
+    return { "profId_FK": body.profId_FK, "aulaId": body.aulaId };
+}
+
+// Helper para definir o retorno de alunoId da maneira esperada.
+helper.toAulasPorAluno = function (body){
+    return { "alunoId": body.alunoId };
+}
+
 // Exportando módulo.
 module.exports = helper;
