@@ -8,14 +8,11 @@ import { AddAulaComponent } from './add-aula/add-aula.component';
 import { DialogConfirmMudancaPresencaComponent } from './dialog-confirm-mudanca-presenca/dialog-confirm-mudanca-presenca.component';
 import { ProfService } from './prof.service';
 
-export interface ProfAula{
+export interface ProfAula {
   aula: any;
-  alunos: AlunosAulas[]
+  alunos: AlunosAulas[];
 }
-export interface AlunosAulas{
-
-}
-
+export interface AlunosAulas {}
 
 @Component({
   selector: 'app-prof',
@@ -32,21 +29,23 @@ export class ProfComponent implements OnInit {
   modeEdit: boolean = false;
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['aula', 'qtdAlunos', 'dataAula', 'opcoes'];
-  constructor(public dialog: MatDialog, private profServ: ProfService, private authServ: AuthService) {}
+  constructor(
+    public dialog: MatDialog,
+    private profServ: ProfService,
+    private authServ: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.authServ.usuario.subscribe(resp => {
-      this.profServ.getProf(resp.login)
-      .subscribe(res => {
-        this.profServ.getAulas(res)
-        .subscribe(re => {
-          re.forEach(element => {
-            console.log(element)
+    this.authServ.usuario.subscribe((resp) => {
+      this.profServ.getProf(resp.login).subscribe((res) => {
+        this.profServ.getAulas(res).subscribe((re) => {
+          re.forEach((element) => {
+            console.log(element);
           });
-        })
-      })
+        });
+      });
     });
-    this.dataSource = new MatTableDataSource([])
+    this.dataSource = new MatTableDataSource([]);
     // this.getAulas();
   }
 
@@ -64,10 +63,7 @@ export class ProfComponent implements OnInit {
   }
 
   getAulas() {
-    this.profServ.getAulas(1)
-    .subscribe(resp => {
-
-    })
+    this.profServ.getAulas(1).subscribe((resp) => {});
 
     setTimeout(() => {
       this.dataSource.sort = this.sort;
@@ -107,7 +103,7 @@ export class ProfComponent implements OnInit {
     });
   }
 
-  initAula(row){
+  initAula(row) {
     console.log(row);
   }
 }
