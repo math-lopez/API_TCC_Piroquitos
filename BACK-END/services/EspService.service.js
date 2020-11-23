@@ -30,14 +30,14 @@ class EspService {
     return p;
   }
 
-  takePhoto(path, response) {
+  takePhoto(path, res) {
     request.get("http://192.168.0.108/capture")
         .on("response", (response) => {
             if(response.statusCode === 200){
                 console.log("Foto tirada pelo ESP.");
                 setTimeout(() => {
                     let esp = new EspService();
-                    esp.getPhotoEsp(path, response);
+                    esp.getPhotoEsp(path, res);
                 }, 10000);
             }
         });

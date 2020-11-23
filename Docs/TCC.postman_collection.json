@@ -1258,6 +1258,62 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "/esp/",
+			"item": [
+				{
+					"name": "/esp/cadastro/ - 200",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/esp/cadastro?ra=123",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"esp",
+								"cadastro"
+							],
+							"query": [
+								{
+									"key": "ra",
+									"value": "123"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/esp/setPresenca/ - 200",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/esp/setPresenca?aulaId=1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"esp",
+								"setPresenca"
+							],
+							"query": [
+								{
+									"key": "aulaId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
