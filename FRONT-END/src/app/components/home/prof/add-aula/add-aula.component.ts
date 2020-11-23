@@ -90,8 +90,8 @@ export class AddAulaComponent implements OnInit {
         this.profServ.addAula({
           nome: aula.aula,
           inicio_Aula: aula.inicioAula,
-          duracao_Min: null,
-          profId_FK: res.funcionarioId,
+          duracao_Min: 0,
+          profid_FK: res.funcionarioId,
           salaId_FK: aula.sala
         }).subscribe(r => {
           console.log(r);
