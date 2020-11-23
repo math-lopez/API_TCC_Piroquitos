@@ -94,8 +94,8 @@ export class AddAulaComponent implements OnInit {
             profId_FK: res.funcionarioId,
             salaId_FK: aula.sala
           }).subscribe(r => {
-            aula.alunos.forEach(element => {
-              console.log(element)
+            aula.alunos.forEach(e => {
+              this.profServ.addAluno({alunoId_FK: e, aulaId_FK: r.aulaId})
             });
             setTimeout(() => {
               this.dialogRef.close()
@@ -110,7 +110,10 @@ export class AddAulaComponent implements OnInit {
             profId_FK: res.funcionarioId,
             salaId_FK: aula.sala,
             aulaId: this.data.aula.aulaId
-          }).subscribe(resp => {
+          }).subscribe(r => {
+            aula.alunos.forEach(e => {
+              this.profServ.addAluno({alunoId_FK: e, aulaId_FK: r.aulaId})
+            });
             setTimeout(() => {
               this.dialogRef.close()
             }, 500);
