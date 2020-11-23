@@ -45,7 +45,7 @@ app.use('/usuarios', usuarios_routes);
 app.use('/alunos', alunos_routes);
 app.use('/funcionarios', func_routes);
 app.use('/salas', salas_routes);
-// app.use('/aulas', aulas_routes);
+app.use('/aulas', aulas_routes);
 app.use('/presenca', presenca_routes);
 
 // Subindo o servidor para escutar na porta declarada.
