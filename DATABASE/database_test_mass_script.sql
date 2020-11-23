@@ -23,6 +23,10 @@ INSERT INTO tcc.aulas_tb(nome, inicio_Aula, duracao_Min, profId_FK, salaId_FK) V
 INSERT INTO tcc.aulas_tb(nome, inicio_Aula, duracao_Min, profId_FK, salaId_FK) VALUES ("FISICA", '2020-11-15 19:15:00', 50, 2, 2);
 INSERT INTO tcc.aulas_tb(nome, inicio_Aula, duracao_Min, profId_FK, salaId_FK) VALUES ("HISTORIA", '2020-10-20 19:15:00', 100, 2, 1);
 
+/*Deletes para teste das triggers*/
+DELETE FROM tcc.aulas_tb WHERE aulaId = 1;
+DELETE FROM tcc.aluno_tb WHERE alunoId = 1;
+
 /*Consultas prontas*/
 SELECT * FROM tcc.usuarios_tb;
 SELECT * FROM tcc.aluno_tb;
