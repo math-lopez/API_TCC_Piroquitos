@@ -10,10 +10,8 @@ import { ProfService } from './prof.service';
 
 export interface ProfAula {
   aula: any;
-  alunos: AlunosAulas[];
+  alunos: any;
 }
-export interface AlunosAulas {}
-
 @Component({
   selector: 'app-prof',
   templateUrl: './prof.component.html',
@@ -23,7 +21,7 @@ export class ProfComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  profAula: ProfAula[];
+  profAula: ProfAula[] = [];
   aulaActive: any;
   dateAtual = new Date();
   modeEdit: boolean = false;
@@ -38,17 +36,32 @@ export class ProfComponent implements OnInit {
   ngOnInit(): void {
     this.authServ.usuario.subscribe((resp) => {
       this.profServ.getProf(resp.login).subscribe((res) => {
-        this.profServ.getAulas(res).subscribe((re) => {
-          re.forEach((element) => {
-            console.log(element);
-          });
+        this.profServ.getAulas(res).subscribe(async (re) => {
+          let teste = await this.addAlunosAula(re);
+          setTimeout(() => {
+            console.log(this.profAula)
+            this.dataSource = new MatTableDataSource(this.profAula);
+          }, 500) 
         });
       });
     });
-    this.dataSource = new MatTableDataSource([]);
+    this.dataSource = new MatTableDataSource(this.profAula);
     // this.getAulas();
   }
 
+  addAlunosAula(re){
+    re.forEach((element) => {
+      this.profServ
+        .getAlunosPorAula(element.profId_FK, element.aulaId)
+        .subscribe((r) => {
+          console.log(r);
+          this.profAula.push({
+            aula: element,
+            alunos: r,
+          });
+        });
+    });
+  }
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;

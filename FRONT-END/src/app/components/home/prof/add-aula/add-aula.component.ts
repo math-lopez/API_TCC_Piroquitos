@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from 'src/app/shared/auth.service';
+import { ProfService } from '../prof.service';
 
 @Component({
   selector: 'app-add-aula',
@@ -11,25 +12,48 @@ import { AuthService } from 'src/app/shared/auth.service';
 export class AddAulaComponent implements OnInit {
   salas: any[] = [];
   cadAula: FormGroup;
-  alunosCadastrados: any;
+  alunosCadastrados: any[] = [];
+  modeEdit: boolean = false;
+  fixChar: any = '';
+  selectedAlunos = [];
 
   constructor(
     public dialogRef: MatDialogRef<AddAulaComponent>,
     private formBuilder: FormBuilder,
     private authServ: AuthService,
+    private profServ: ProfService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {
-    if (this.data) var dataUpdate = new Date(this.data.dataAula);
+    this.profServ.getSalas()
+    .subscribe(resp => {
+      this.salas = resp;
+    });
+
+    this.profServ.getAlunos()
+    .subscribe(resp => {
+      this.alunosCadastrados = resp;
+      if(this.data){
+        this.alunosCadastrados.forEach(e => {
+          this.verificarMatricula(e);
+        });
+      }
+    });
+
+    if (this.data){
+      var dataUpdate = new Date(this.data.aula.inicio_Aula);
+      this.fixChar = dataUpdate.getDate() <= 9 ? '0' : '';
+    }
 
     this.authServ.users.subscribe((resp) => {
       this.alunosCadastrados = resp;
     });
 
+
     this.cadAula = this.formBuilder.group({
       aula: [
-        this.data != undefined ? this.data.aula : null,
+        this.data != undefined ? this.data.aula.nome : null,
         [Validators.required],
       ],
       inicioAula: [
@@ -38,7 +62,7 @@ export class AddAulaComponent implements OnInit {
             '-' +
             dataUpdate.getMonth() +
             '-' +
-            dataUpdate.getDate() +
+            this.fixChar + dataUpdate.getDate() +
             'T' +
             dataUpdate.getHours() +
             ':' +
@@ -47,11 +71,11 @@ export class AddAulaComponent implements OnInit {
         [Validators.required],
       ],
       sala: [
-        this.data?.sala != undefined ? this.data.sala : null,
+        this.data?.aula.salaId_FK != undefined ? this.data?.aula.salaId_FK : null,
         Validators.required,
       ],
       alunos: [
-        this.data?.alunos != undefined ? this.data.alunos : null,
+        this.data?.alunos != undefined ? this.data?.alunos : null,
         Validators.required,
       ],
     });
@@ -61,5 +85,15 @@ export class AddAulaComponent implements OnInit {
     var aula = this.cadAula.value;
     console.log(aula);
     this.dialogRef.close();
+  }
+
+  verificarMatricula(aluno){
+    let al = this.data.alunos.filter(e => {
+      return e.alunoId === aluno.alunoId;
+    });
+
+    if(al.length > 0){
+      this.selectedAlunos.push(al[0].alunoId)
+    }
   }
 }

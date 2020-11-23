@@ -12,6 +12,22 @@ export class ProfService {
   getProf(login){
     return this.http.post(`${environment.API_URL}funcionarios/searchByLogin`, {login_FK: login});
   }
+
+  getAlunosPorAula(profId, aulaId){
+    console.log(profId, aulaId)
+    return this.http.post(`${environment.API_URL}custom/alunosPorAula`, {
+      profId_FK: profId,
+      aulaId: aulaId});
+  }
+
+  getSalas(){
+    return this.http.post<any[]>(`${environment.API_URL}salas/list`, {});
+  }
+
+  getAlunos(){
+    return this.http.post<any[]>(`${environment.API_URL}alunos/list`, {});
+  }
+
   getAulas(prof){
     console.log(prof)
     return this.http.post<any[]>(`${environment.API_URL}aulas/searchByIdProf`, {profid_FK: prof.funcionarioId});

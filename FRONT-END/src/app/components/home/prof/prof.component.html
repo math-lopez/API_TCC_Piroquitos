@@ -17,21 +17,21 @@
       <ng-container matColumnDef="aula">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>aula</th>
         <td mat-cell *matCellDef="let row" (click)="editStudent(row)">
-          {{ row.aula }}
+          {{ row.aula.nome }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="qtdAlunos">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>alunos</th>
         <td mat-cell *matCellDef="let row" (click)="editStudent(row)">
-          {{ row.qtdAlunos }}
+          {{ row.alunos.length }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="dataAula">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>data aula</th>
         <td mat-cell *matCellDef="let row" (click)="editStudent(row)">
-          {{ row.dataAula | date: "dd/MM/yyyy HH:mm" }}
+          {{ row.aula.inicio_Aula | date: "dd/MM/yyyy HH:mm" }}
         </td>
       </ng-container>
 
