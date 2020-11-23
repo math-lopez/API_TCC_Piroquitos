@@ -10,9 +10,10 @@ export class ProfService {
   constructor(private http: HttpClient) { }
 
   getProf(login){
-    return this.http.post(`${environment.API_URL}aulas/searchByIdProf`, login);
+    return this.http.post(`${environment.API_URL}funcionarios/searchByLogin`, {login_FK: login});
   }
   getAulas(prof){
-    return this.http.post(`${environment.API_URL}aulas/searchByIdProf`, prof);
+    console.log(prof)
+    return this.http.post<any[]>(`${environment.API_URL}aulas/searchByIdProf`, {profid_FK: prof.funcionarioId});
   }
 }

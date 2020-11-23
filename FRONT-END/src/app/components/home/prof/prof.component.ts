@@ -8,6 +8,15 @@ import { AddAulaComponent } from './add-aula/add-aula.component';
 import { DialogConfirmMudancaPresencaComponent } from './dialog-confirm-mudanca-presenca/dialog-confirm-mudanca-presenca.component';
 import { ProfService } from './prof.service';
 
+export interface ProfAula{
+  aula: any;
+  alunos: AlunosAulas[]
+}
+export interface AlunosAulas{
+
+}
+
+
 @Component({
   selector: 'app-prof',
   templateUrl: './prof.component.html',
@@ -17,16 +26,28 @@ export class ProfComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  profAula: ProfAula[];
   aulaActive: any;
   dateAtual = new Date();
   modeEdit: boolean = false;
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['aula', 'qtdAlunos', 'dataAula', 'opcoes'];
-  constructor(public dialog: MatDialog, private profServ: ProfService) {}
+  constructor(public dialog: MatDialog, private profServ: ProfService, private authServ: AuthService) {}
 
   ngOnInit(): void {
-    // thi
-    this.getAulas();
+    this.authServ.usuario.subscribe(resp => {
+      this.profServ.getProf(resp.login)
+      .subscribe(res => {
+        this.profServ.getAulas(res)
+        .subscribe(re => {
+          re.forEach(element => {
+            console.log(element)
+          });
+        })
+      })
+    });
+    this.dataSource = new MatTableDataSource([])
+    // this.getAulas();
   }
 
   ngAfterViewInit(): void {
