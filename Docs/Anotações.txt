@@ -1,0 +1,51 @@
+OK - EXPLICAÇÃO DE TODA A ARQUITETURA (caso do cara do busão, como o dado vai ser enviado?)
+OK - Configuração e necessidade computacional
+OK - Pontos de gargalo
+N/A - Plano de contingência
+OK - Foco em usabilidade/questões de formulário
+OK - Mobile
+N/A - Máscara e visualização dos dados
+OK - Taxa de acerto do reconhecimento facial (COLOCAR NA MINHA FALA)
+OK - Questão de direito/controle/segurança da imagem (COLOCAR NA FALA DO LUCCAAAAAAA)
+ - Questão de envelhecimento da pessoa foto referencia - foto busca
+
+ = Justificativa de uma matéria (G1?)? sem referência científica/acadêmica?
+ = Referências bibliograficas citadas não estão referenciadas no texto.
+
+OK ! - Câmera não pegar sala inteira + ter qualidade pior (COLOCAR NA MINHA FALA).
+OK ! - módulo ligado na tomada através de fonte de 5V/12V (COLOCAR NA MINHA FALA).
+ ! - Diferença entre requisito funcional e não funcional.
+OK ! - Aluno não for reconhecido .
+
+OK + Dar muito foco pro reconhecimento facial (COLOCAR NA MINHA FALA)
+
+==================================================================================
+
+FEBEM (Slide 1-3):
+-> Apresentação (Curso, campus, título do projeto, e nossos nomes).
+-> Explicação do problema.
+	+ "Será que utilizamos todo o tempo de aula da forma mais eficiente?".
+	+ Apresentar os dados que identificam o problema (slide).
+	Obs.: Gravar alguns países da OCDE para citar.
+
+LUCCA(Slide 4-6):
+-> OBJETIVO DE SOLUÇÃO:
+	+ "Com isso, nosso objetivo é....".
+	+ Automatizar o processo para não parar a aula.
+	+ Usar reconhecimento facial para não exigir interação humana com a solução.
+	+ Utilizar microcontrolador System On Chip (SoC), placa com todos os recursos computacionais necessários, escolhemos o ESP32-CAM pelo preço, wifi embutido, e câmera para coleta de imagens.
+	+ Desenhar solução escalável que seja viável desde pequenas à grandes instituições.
+-> Aplicação e módulo:
+	+ As interações se dão pela interface gráfica (Aplicação WEB) e pelo módulo que fará a coleta das imagens.
+	+ A interação com a aplicação será através da interface WEB neste protótipo, mas como um objetivo futuro, analisamos a implementação mobile.
+-> INTERAÇÕES:
+	+ Nosso sistema tem 3 tipos de usuário, que vão interagir com diferentes permissões.... (explicar os usuários e o que fazem no sistema).
+	+ Explicar o cadastro na matrícula com coleta de foto pelo funcionário da secretaria, da mesma forma que é feito hoje para a carteirinha.
+	+ Com o início das aulas cadastradas, acontece a checagem de presença com coleta de imagens recorrente, para garantir os 75% de presença, ou a % definida pela instituição.
+	Obs.: Para o protótipo, focamos no core, no principal para o projeto, e esta recorrência não está implementa, mas é um objetivo para o trabalho no futuro.
+
+Gabril ():
+->
+
+MATHEUS (Slide 11):
+-> APRESENTAÇÃO COMPLETA.
