@@ -3,6 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const controllerFaceRecognition = require("./controllers/FaceRecognition.controller");
+
 // Importação das rotas das APIs.
 const usuarios_routes = require('./routes/usuarios.routes');
 const alunos_routes = require('./routes/alunos.routes');
@@ -31,6 +33,11 @@ app.use('/aulas', aulas_routes);
 app.use('/presenca', presenca_routes);
 app.use('/custom', custom_routes);
 app.use('/esp', esp_routes);
+
+// app.get('/test', async function (req, res) {
+//     const aulaId = req.query.aulaId;
+//     controllerFaceRecognition.initCalcPresenca(aulaId);
+// }); 
 
 // Subindo o servidor para escutar na porta declarada.
 app.listen(port, () => console.log(`Restful APIs do Back-end escutando na porta ${port}.`));

@@ -1,6 +1,5 @@
 // Importações.
 const EspService = require('../services/EspService.service');
-const FaceRecognitionService = require("../services/FaceRecognition.service");
 
 // Declaração do módulo que será exportado.
 let controller = {};

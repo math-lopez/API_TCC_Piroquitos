@@ -44,8 +44,8 @@ class FaceRecognitionService {
         await faceapi.nets.faceRecognitionNet.loadFromDisk(CAMINHO_COMPLETO_MODELO_IA);
         const optionsSSDMobileNet = new faceapi.SsdMobilenetv1Options({ minConfidence: SCORE_MIN_CONFIANCA });
     
-        const CAMINHO_IMG_REF = path.join(__dirname, "../photos/" + img_ref);
-        const CAMINHO_IMG_QUERY = path.join(__dirname, "../photos/" + img_query);
+        const CAMINHO_IMG_REF = img_ref;
+        const CAMINHO_IMG_QUERY = img_query;
 
         const tensor_reference = await this.getImage(CAMINHO_IMG_REF);
         const result_reference = await faceapi.detectAllFaces(tensor_reference, optionsSSDMobileNet)
