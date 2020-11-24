@@ -21,9 +21,14 @@ export class NavbarComponent implements OnInit {
       this.authService.usuario.subscribe(resp => { this.usuario = resp })
     );
   }
+
   logout(){
     this.router.navigate([''])
     this.authService.isAuth.next(false);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach(e => e.unsubscribe())
   }
 
 }

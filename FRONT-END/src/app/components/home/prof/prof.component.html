@@ -55,8 +55,8 @@
             edit
           </span>
           <span
-            class="material-icons iconOptions"
-            style="color: #00692f"
+            class="material-icons iconOptions iconInitiAula"
+            *ngIf="checkInit(row)"
             [matTooltip]="'iniciar aula'"
             (click)="initAula(row)"
           >

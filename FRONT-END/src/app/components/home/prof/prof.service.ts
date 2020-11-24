@@ -14,7 +14,7 @@ export class ProfService {
   }
 
   getAlunosPorAula(profId, aulaId){
-    return this.http.post(`${environment.API_URL}custom/alunosPorAula`, {
+    return this.http.post<any[]>(`${environment.API_URL}custom/alunosPorAula`, {
       profId_FK: profId,
       aulaId: aulaId});
   }
@@ -28,12 +28,11 @@ export class ProfService {
   }
 
   getAulas(prof){
-    console.log(prof)
+    console.log({profId_FK: prof.funcionarioId})
     return this.http.post<any[]>(`${environment.API_URL}aulas/searchByIdProf`, {profId_FK: prof.funcionarioId});
   }
 
   addAula(aula){
-    console.log(aula);
     return this.http.post<any>(`${environment.API_URL}aulas/add`, aula);
   }
 
@@ -42,14 +41,23 @@ export class ProfService {
   }
 
   updateAula(aula){
-    console.log(aula);
     return this.http.post<any>(`${environment.API_URL}aulas/update`, aula);
   }
+
   deleteAula(aulaId){
     return this.http.post(`${environment.API_URL}aulas/removeById`, {aulaId: aulaId});
   }
 
   removeAlunoAula(alunoId_FK, aulaId_FK){
     return this.http.post(`${environment.API_URL}presenca/remove`, {alunoId_FK: alunoId_FK, aulaId_FK: aulaId_FK});
+  }
+
+  iniciarAula(idAula){
+    return this.http.get(`${environment.API_URL}esp/setPresenca?aulaId=${idAula}`);
+  }
+
+  updatePresenca(presenca){
+    console.log(presenca)
+    return this.http.post(`${environment.API_URL}presenca/update`, presenca);
   }
 }

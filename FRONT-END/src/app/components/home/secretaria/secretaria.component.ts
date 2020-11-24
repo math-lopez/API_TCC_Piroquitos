@@ -6,6 +6,7 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { error } from 'protractor';
+import { Subscription } from 'rxjs';
 import { SecretariaService } from './secretaria.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class SecretariaComponent implements OnInit {
   tookPhoto: boolean = true;
   cadAluno: FormGroup;
   idPhoto = 0;
+  subscription: Subscription[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +35,7 @@ export class SecretariaComponent implements OnInit {
       password: [null, [Validators.required]],
       tipo: [null, [Validators.required]],
       nome: [null, [Validators.required]],
-      funcRA: [null, [Validators.required]]
+      funcRA: [null, [Validators.required]],
     });
   }
 
@@ -50,58 +52,70 @@ export class SecretariaComponent implements OnInit {
   }
 
   cadUser() {
-    this.secServ
-      .cadUser({
-        login: this.cadAluno.value.login,
-        senha: this.cadAluno.value.password,
-        tipo: this.cadAluno.value.tipo,
-      })
-      .subscribe((resp) => {
-        if(this.cadAluno.value.tipo === 'aluno'){
-          this.cadastrarAluno();
-        }
-        else{
-          this.cadastrarFunc();
-        }        
-      }, error => {
-        this._snackBar.open('Erro ao salvar o usuário', 'fechar', {
-          duration: 4000,
-          horizontalPosition: this.horizontal,
-          verticalPosition: this.vertical,
-        });
-      });
+    this.subscription.push(
+      this.secServ
+        .cadUser({
+          login: this.cadAluno.value.login,
+          senha: this.cadAluno.value.password,
+          tipo: this.cadAluno.value.tipo,
+        })
+        .subscribe(
+          (resp) => {
+            if (this.cadAluno.value.tipo === 'aluno') {
+              this.cadastrarAluno();
+            } else {
+              this.cadastrarFunc();
+            }
+          },
+          (error) => {
+            this._snackBar.open('Erro ao salvar o usuário', 'fechar', {
+              duration: 4000,
+              horizontalPosition: this.horizontal,
+              verticalPosition: this.vertical,
+            });
+          }
+        )
+    );
   }
 
-  cadastrarAluno(){
-    this.secServ.cadAluno({
-      nome: this.cadAluno.value.nome,
-      ra: this.cadAluno.value.funcRA,
-      login_FK: this.cadAluno.value.login
-    }).subscribe(resp => {
-      this._snackBar.open('Usuário criado com sucesso', 'fechar', {
-        duration: 4000,
-        horizontalPosition: this.horizontal,
-        verticalPosition: this.vertical,
-      });
-      this.clearForm();
-    });
+  cadastrarAluno() {
+    this.subscription.push(
+      this.secServ
+        .cadAluno({
+          nome: this.cadAluno.value.nome,
+          ra: this.cadAluno.value.funcRA,
+          login_FK: this.cadAluno.value.login,
+        })
+        .subscribe((resp) => {
+          this._snackBar.open('Usuário criado com sucesso', 'fechar', {
+            duration: 4000,
+            horizontalPosition: this.horizontal,
+            verticalPosition: this.vertical,
+          });
+          this.clearForm();
+        })
+    );
   }
 
-  cadastrarFunc(){
-    this.secServ.cadFunc({
-      nome: this.cadAluno.value.nome,
-      funcional: this.cadAluno.value.funcRA,
-      login_FK: this.cadAluno.value.login
-    }).subscribe(resp => {
-      console.log(resp);
-      this.tookPhoto = true;
-      this._snackBar.open('Usuário criado com sucesso', 'fechar', {
-        duration: 4000,
-        horizontalPosition: this.horizontal,
-        verticalPosition: this.vertical,
-      });
-      this.clearForm();
-    });
+  cadastrarFunc() {
+    this.subscription.push(
+      this.secServ
+        .cadFunc({
+          nome: this.cadAluno.value.nome,
+          funcional: this.cadAluno.value.funcRA,
+          login_FK: this.cadAluno.value.login,
+        })
+        .subscribe((resp) => {
+          console.log(resp);
+          this.tookPhoto = true;
+          this._snackBar.open('Usuário criado com sucesso', 'fechar', {
+            duration: 4000,
+            horizontalPosition: this.horizontal,
+            verticalPosition: this.vertical,
+          });
+          this.clearForm();
+        })
+    );
   }
 
   clearForm() {
@@ -111,18 +125,22 @@ export class SecretariaComponent implements OnInit {
     this.cadAluno.reset();
   }
 
-  changeTipo(event){
-    if(event === 'aluno')this.tookPhoto = true;
+  changeTipo(event) {
+    if (event === 'aluno') this.tookPhoto = true;
     else this.tookPhoto = false;
   }
 
   capturePhoto() {
     this.idPhoto++;
-    this.secServ
-      .savePhoto(this.cadAluno.value.funcRA, this.idPhoto.toString())
-      .subscribe((resp) => {
+    this.subscription.push(
+      this.secServ.savePhoto(this.cadAluno.value.funcRA).subscribe((resp) => {
         console.log(resp);
         this.tookPhoto = false;
-      });
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach(e => e.unsubscribe());
   }
 }

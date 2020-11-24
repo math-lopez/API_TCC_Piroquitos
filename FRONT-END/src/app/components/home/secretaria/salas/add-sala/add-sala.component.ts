@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 import { SecretariaService } from '../../secretaria.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class AddSalaComponent implements OnInit {
   salas: any[] = [];
   cadSala: FormGroup;
   modeUpdate: boolean = false;
+  subscription: Subscription[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<AddSalaComponent>,
@@ -52,24 +54,33 @@ export class AddSalaComponent implements OnInit {
 
   addSala() {
     if(!this.modeUpdate){
-    this.secServ.cadSala(this.cadSala.value)
-    .subscribe(resp => {
-      this._snackBar.open('Sala criada com sucesso', 'fechar', {
-        duration: 4000
-      });
-      this.dialogRef.close();
-    });
+      this.subscription.push(
+        this.secServ.cadSala(this.cadSala.value)
+        .subscribe(resp => {
+          this._snackBar.open('Sala criada com sucesso', 'fechar', {
+            duration: 4000
+          });
+          this.dialogRef.close();
+        })
+      )
     }
     else{
       var salaUpdate = this.cadSala.value;
       salaUpdate.salaId = this.data.sala.salaId;
-      this.secServ.updateSala(salaUpdate)
-      .subscribe(resp => {
-        this._snackBar.open('Sala criada com sucesso', 'fechar', {
-          duration: 4000
-        });
-        this.dialogRef.close();
-      });
+
+      this.subscription.push(
+        this.secServ.updateSala(salaUpdate)
+        .subscribe(resp => {
+          this._snackBar.open('Sala criada com sucesso', 'fechar', {
+            duration: 4000
+          });
+          this.dialogRef.close();
+        })
+      )
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach(e => e.unsubscribe())
   }
 }

@@ -70,8 +70,7 @@ export class SecretariaService {
     return this.http.post(`${environment.API_URL}salas/remove`, {salaId: salaId})
   }
 
-  savePhoto(ra, idPhoto){
-    console.log(idPhoto)
-    return this.http.get(`${environment.API_URL}?ra=${ra}&idPhoto=${idPhoto}`)
+  savePhoto(ra){
+    return this.http.get(`${environment.API_URL}esp/cadastro?ra=${ra}`);
   }
 }

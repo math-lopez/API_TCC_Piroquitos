@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
         tipo: null,
       })
       .subscribe((resp) => {
-        console.log(resp)
         if (resp.tipo == 'secre') this.router.navigate(['home/sec']);
         else if (resp.tipo == 'profe') this.router.navigate(['home/prof']);
         else if (resp.tipo == 'aluno') this.router.navigate(['home/aluno']);
