@@ -3,12 +3,12 @@
     <h1 style="font-weight: bolder;">UNIVERSIDADE PAULISTA</h1>
     <div class="inputsLogin">
         <mat-form-field appearance="fill" style="margin-bottom: 2.5rem">
-          <mat-label>Usuário</mat-label>
+          <mat-label>usuário</mat-label>
           <input matInput [formControl]="user"  autofocus/>
           <mat-error *ngIf="user.errors?.required">Insira seu usuário</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Enter your password</mat-label>
+          <mat-label>insira sua senha</mat-label>
           <input
             matInput
             [formControl]="password"

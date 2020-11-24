@@ -48,4 +48,8 @@ export class ProfService {
   deleteAula(aulaId){
     return this.http.post(`${environment.API_URL}aulas/removeById`, {aulaId: aulaId});
   }
+
+  removeAlunoAula(alunoId_FK, aulaId_FK){
+    return this.http.post(`${environment.API_URL}presenca/remove`, {alunoId_FK: alunoId_FK, aulaId_FK: aulaId_FK});
+  }
 }
