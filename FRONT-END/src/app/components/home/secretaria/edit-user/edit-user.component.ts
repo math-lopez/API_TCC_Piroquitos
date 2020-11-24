@@ -56,7 +56,6 @@ export class EditUserComponent implements OnInit {
           tipo: this.cadAluno.value.tipo,
         })
         .subscribe((resp) => {
-          console.log(resp);
           this._snackBar.open('Usuário alterado com sucesso', 'fechar', {
             duration: 4000,
             horizontalPosition: this.horizontal,
@@ -70,7 +69,6 @@ export class EditUserComponent implements OnInit {
           });
         });
     } else {
-      console.log(this.cadAluno);
       this._snackBar.open('Obrigatório preencher todos os campos.', 'fechar', {
         duration: 2000,
         horizontalPosition: this.horizontal,

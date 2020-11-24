@@ -28,7 +28,6 @@ export class ProfService {
   }
 
   getAulas(prof){
-    console.log({profId_FK: prof.funcionarioId})
     return this.http.post<any[]>(`${environment.API_URL}aulas/searchByIdProf`, {profId_FK: prof.funcionarioId});
   }
 
@@ -57,7 +56,6 @@ export class ProfService {
   }
 
   updatePresenca(presenca){
-    console.log(presenca)
     return this.http.post(`${environment.API_URL}presenca/update`, presenca);
   }
 }

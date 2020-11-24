@@ -16,7 +16,10 @@ export class AddAulaComponent implements OnInit {
   cadAula: FormGroup;
   alunosCadastrados: any[] = [];
   modeEdit: boolean = false;
-  fixChar: any = '';
+  fixCharDay: any = '';
+  fixCharMonth: any = '';
+  fixCharHour: any = '';
+  fixCharMinutes: any = '';
   selectedAlunos = [];
   subscription: Subscription[] = []
 
@@ -49,7 +52,16 @@ export class AddAulaComponent implements OnInit {
       var dataUpdate = new Date(this.data.aula.inicio_Aula);
       this.modeEdit = true;
       if (dataUpdate.getDate() <= 9) {
-        this.fixChar = '0';
+        this.fixCharDay = '0';
+      }
+      if((dataUpdate.getMonth()+1) <= 9){
+        this.fixCharMonth = '0';
+      }
+      if(dataUpdate.getHours() <= 9){
+        this.fixCharHour = '0';
+      }
+      if(dataUpdate.getMinutes() <= 9){
+        this.fixCharMinutes = '0';
       }
     }
 
@@ -66,14 +78,17 @@ export class AddAulaComponent implements OnInit {
       inicioAula: [
         this.data != undefined
           ? dataUpdate.getFullYear() +
+            '-' + 
+            this.fixCharMonth +
+            (dataUpdate.getMonth()+1) +
             '-' +
-            dataUpdate.getMonth() +
-            '-' +
-            this.fixChar +
+            this.fixCharDay +
             dataUpdate.getDate() +
             'T' +
+            this.fixCharHour +
             dataUpdate.getHours() +
             ':' +
+            this.fixCharMinutes +
             dataUpdate.getMinutes()
           : null,
         [Validators.required],
@@ -117,7 +132,6 @@ export class AddAulaComponent implements OnInit {
               }, 500);
             });
         } else {
-          console.log('Update '+resp.login, res.funcionarioId);
           this.subscription.push(
           this.profServ
             .updateAula({
@@ -162,6 +176,7 @@ export class AddAulaComponent implements OnInit {
                     })
                     .subscribe((result) => {}));
                 });
+                
               } else {
                 aula.alunos.forEach((e) => {
                   this.profServ

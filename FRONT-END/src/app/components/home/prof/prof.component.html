@@ -36,8 +36,8 @@
       </ng-container>
 
       <ng-container matColumnDef="opcoes">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>opções</th>
-        <td mat-cell *matCellDef="let row">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;">opções</th>
+        <td mat-cell *matCellDef="let row" style="text-align: center;">
           <span
             class="material-icons iconOptions"
             style="color: orange"
@@ -56,7 +56,7 @@
           </span>
           <span
             class="material-icons iconOptions iconInitiAula"
-            *ngIf="checkInit(row)"
+            [class.disabled]="checkInit(row)"
             [matTooltip]="'iniciar aula'"
             (click)="initAula(row)"
           >

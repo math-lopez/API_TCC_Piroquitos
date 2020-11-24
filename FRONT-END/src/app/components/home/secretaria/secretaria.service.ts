@@ -22,47 +22,38 @@ export class SecretariaService {
   }
 
   cadSala(sala){
-    console.log(sala);
     return this.http.post(`${environment.API_URL}salas/add`, sala);
   }
 
   cadUser(user) {
-    console.log(user);
     return this.http.post(`${environment.API_URL}usuarios/add`, user);
   }
 
   cadAluno(aluno){
-    console.log(aluno);
     return this.http.post(`${environment.API_URL}alunos/add`, aluno);
   }
 
   cadFunc(func){
-    console.log(func);
     return this.http.post(`${environment.API_URL}funcionarios/add`, func);
   }
 
   updateUser(user) {
-    console.log(user);
     return this.http.post(`${environment.API_URL}usuarios/update`, user);
   }
 
   updateSala(sala){
-    console.log(sala);
     return this.http.post(`${environment.API_URL}salas/update`, sala);
   }
 
   removeUser(user){
-    console.log(user);
     return this.http.post(`${environment.API_URL}usuarios/remove`, user);
   }
 
   removeFunc(funcId){
-    console.log(funcId)
     return this.http.post(`${environment.API_URL}funcionarios/removeById`, {funcionarioId: funcId});
   }
 
   removeAluno(alunoId){
-    console.log(alunoId)
     return this.http.post(`${environment.API_URL}alunos/removeById`, {alunoId: alunoId});
   }
 

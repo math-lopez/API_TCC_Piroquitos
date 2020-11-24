@@ -106,7 +106,6 @@ export class SecretariaComponent implements OnInit {
           login_FK: this.cadAluno.value.login,
         })
         .subscribe((resp) => {
-          console.log(resp);
           this.tookPhoto = true;
           this._snackBar.open('Usuário criado com sucesso', 'fechar', {
             duration: 4000,
@@ -134,7 +133,6 @@ export class SecretariaComponent implements OnInit {
     this.idPhoto++;
     this.subscription.push(
       this.secServ.savePhoto(this.cadAluno.value.funcRA).subscribe((resp) => {
-        console.log(resp);
         this.tookPhoto = false;
       })
     );

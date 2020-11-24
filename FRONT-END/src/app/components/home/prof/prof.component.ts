@@ -58,14 +58,20 @@ export class ProfComponent implements OnInit {
   ngAfterViewInit(): void {}
 
   checkInit(row){
-    var timeAula = new Date(row.aula.inicio_Aula);
-    return this.dateAtual.getTime() >= timeAula.getTime()
+    let retorno = false;
+    if(row.alunos.length > 0){
+      for (let i = 0; i < row.alunos.length; i++){
+        if(row.alunos[i].presenca == 1 || row.alunos[i].presenca == 0){
+          return true;
+        }
+      }
+    }
+    return false
   }
+
   editStudent(aula) {
     var timeAula = new Date(aula.aula.inicio_Aula);
-    console.log(this.dateAtual.getTime(), timeAula.getTime())
     if (this.dateAtual.getTime() >= timeAula.getTime()) {
-      console.log('teste')
       this.modeEdit = true;
       this.aulaActive = aula;
     }
@@ -80,12 +86,13 @@ export class ProfComponent implements OnInit {
         this.subscription.push(
         this.profServ.getAulas(res).subscribe((re) => {
           this.addAlunosAula(re);
+          this.dataSource = new MatTableDataSource([]);
           setTimeout(() => {
             this.dataSource = new MatTableDataSource(this.profAula);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
           }, 500);
-        }, error => {console.log(error)}))
+        }, error => {}))
       }))
     }));
   }
@@ -138,10 +145,8 @@ export class ProfComponent implements OnInit {
     this.subscription.push(
     this.profServ.iniciarAula(row.aula.aulaId).subscribe(resp => {
       setTimeout(() => {
-        this.dataSource = new MatTableDataSource(this.profAula);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }, 500);
+        this.getAulas();
+      }, 5500);
     })
     )
   }

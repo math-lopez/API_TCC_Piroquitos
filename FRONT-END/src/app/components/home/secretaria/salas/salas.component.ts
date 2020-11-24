@@ -45,7 +45,6 @@ export class SalasComponent implements OnInit {
     // this.dataSource = new MatTableDataSource();
     this.subscription.push(
       this.secServ.getSalas().subscribe((Salas) => {
-        console.log(Salas)
         this.dataSource = new MatTableDataSource(Salas);
         this.dataSource.paginator = this.paginator;
       })
