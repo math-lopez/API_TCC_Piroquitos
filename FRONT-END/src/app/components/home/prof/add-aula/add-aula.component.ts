@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from 'src/app/shared/auth.service';
+import { AulasComponent } from '../../aluno/aulas/aulas.component';
 import { ProfService } from '../prof.service';
 
 @Component({
@@ -43,7 +44,10 @@ export class AddAulaComponent implements OnInit {
 
     if (this.data){
       var dataUpdate = new Date(this.data.aula.inicio_Aula);
-      this.fixChar = dataUpdate.getDate() <= 9 ? '0' : '';
+      this.modeEdit = true;
+      if(dataUpdate.getDate() <= 9 ){
+        this.fixChar = '0'
+      }
     }
 
     this.authServ.users.subscribe((resp) => {
@@ -86,7 +90,8 @@ export class AddAulaComponent implements OnInit {
     console.log(this.data);
     this.authServ.usuario.subscribe((resp) => {
       this.profServ.getProf(resp.login).subscribe((res) => {
-        if(this.data == undefined){
+        if(this.data == null){
+          console.log('BBBB')
           this.profServ.addAula({
             nome: aula.aula,
             inicio_Aula: aula.inicioAula,
@@ -94,8 +99,12 @@ export class AddAulaComponent implements OnInit {
             profId_FK: res.funcionarioId,
             salaId_FK: aula.sala
           }).subscribe(r => {
+            console.log(r)
             aula.alunos.forEach(e => {
-              this.profServ.addAluno({alunoId_FK: e, aulaId_FK: r.aulaId})
+              this.profServ.addAluno({alunoId_FK: e, aulaId_FK: r.aulaId}).
+              subscribe(result => {
+                console.log(result);
+              })
             });
             setTimeout(() => {
               this.dialogRef.close()
@@ -103,6 +112,7 @@ export class AddAulaComponent implements OnInit {
           });
         }
         else{
+          console.log('AAAAA')
           this.profServ.updateAula({
             nome: aula.aula,
             inicio_Aula: aula.inicioAula,
@@ -111,9 +121,40 @@ export class AddAulaComponent implements OnInit {
             salaId_FK: aula.sala,
             aulaId: this.data.aula.aulaId
           }).subscribe(r => {
-            aula.alunos.forEach(e => {
-              this.profServ.addAluno({alunoId_FK: e, aulaId_FK: r.aulaId})
-            });
+            if(this.selectedAlunos.length > 0){
+              if(aula.alunos.length > this.selectedAlunos.length){
+                aula.alunos.forEach(e => {
+                  if(this.selectedAlunos.filter(s => {
+                    return s != e;
+                  })){
+                    this.profServ.addAluno({alunoId_FK: e, aulaId_FK: this.data.aula.aulaId}).
+                    subscribe(result => {
+                      console.log(result);
+                    });
+                  }
+                });
+              }else if(aula.alunos.length < this.selectedAlunos.length){
+                aula.alunos.forEach(e => {
+                  if(this.selectedAlunos.filter(s => {
+                    console.log(s != e)
+                    return s != e;
+                  })){
+                      this.profServ.removeAlunoAula(e, this.data.aula.aulaId)
+                      .subscribe(result => {
+                        console.log(result);
+                      });
+                    }
+                  })
+                }
+              }
+              else{
+                aula.alunos.forEach(e => {
+                  this.profServ.addAluno({alunoId_FK: e, aulaId_FK: this.data.aula.aulaId})
+                    .subscribe(result => {
+                    console.log(result);
+                  })
+                });
+              }
             setTimeout(() => {
               this.dialogRef.close()
             }, 500);
