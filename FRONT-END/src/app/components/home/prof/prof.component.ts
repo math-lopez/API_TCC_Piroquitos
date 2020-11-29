@@ -70,10 +70,11 @@ export class ProfComponent implements OnInit {
   }
 
   editStudent(aula) {
+    this.modeEdit = true;
+    this.aulaActive = aula;
     var timeAula = new Date(aula.aula.inicio_Aula);
     if (this.dateAtual.getTime() >= timeAula.getTime()) {
-      this.modeEdit = true;
-      this.aulaActive = aula;
+      
     }
   }
 

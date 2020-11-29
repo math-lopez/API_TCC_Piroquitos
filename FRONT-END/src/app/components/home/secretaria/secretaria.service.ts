@@ -45,6 +45,14 @@ export class SecretariaService {
     return this.http.post(`${environment.API_URL}salas/update`, sala);
   }
 
+  updateAluno(aluno){
+    return this.http.post(`${environment.API_URL}alunos/update`, aluno);
+  }
+
+  updateFunc(func){
+    return this.http.post(`${environment.API_URL}funcionarios/update`, func);
+  }
+
   removeUser(user){
     return this.http.post(`${environment.API_URL}usuarios/remove`, user);
   }

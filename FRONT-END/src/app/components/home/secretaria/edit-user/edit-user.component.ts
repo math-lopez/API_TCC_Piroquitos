@@ -6,6 +6,7 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { error } from 'protractor';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth.service';
 import { SecretariaService } from '../secretaria.service';
 
@@ -24,6 +25,7 @@ export class EditUserComponent implements OnInit {
   hide: boolean = false;
   cadAluno: FormGroup;
   tookPhoto: boolean;
+  subscription: Subscription[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,6 +35,7 @@ export class EditUserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.user);
     this.cadAluno = this.formBuilder.group({
       login: [
         {
@@ -49,13 +52,34 @@ export class EditUserComponent implements OnInit {
 
   submit() {
     if (this.cadAluno.valid) {
-      this.secServ
+      this.subscription.push(
+        this.secServ
         .updateUser({
           login: this.user.login,
           senha: this.cadAluno.value.senha,
           tipo: this.cadAluno.value.tipo,
         })
         .subscribe((resp) => {
+          if(this.user.tipo == 'aluno'){
+            this.subscription.push(
+              this.secServ.updateAluno({
+                alunoId: this.user.alunoId,
+                nome: this.cadAluno.value.nome,
+                ra: this.user.funcRA,
+                login_FK: this.user.login,
+              }).subscribe(resp => {this.back.emit(false)})
+            )
+          }
+          else{
+            this.subscription.push(
+              this.secServ.updateFunc({
+                funcionarioId: this.user.funcionarioId,
+                nome: this.cadAluno.value.nome,
+                funcional: this.user.funcRA,
+                login_FK: this.user.login,
+              }).subscribe(resp => {this.back.emit(false)})
+            )
+          }
           this._snackBar.open('Usuário alterado com sucesso', 'fechar', {
             duration: 4000,
             horizontalPosition: this.horizontal,
@@ -67,7 +91,8 @@ export class EditUserComponent implements OnInit {
             horizontalPosition: this.horizontal,
             verticalPosition: this.vertical,
           });
-        });
+        })
+      )
     } else {
       this._snackBar.open('Obrigatório preencher todos os campos.', 'fechar', {
         duration: 2000,
@@ -77,10 +102,7 @@ export class EditUserComponent implements OnInit {
     }
   }
 
-  clearForm() {
-    this.cadAluno.markAsPristine();
-    this.cadAluno.markAsUntouched();
-    this.cadAluno.updateValueAndValidity();
-    this.cadAluno.reset();
+  ngOnDestroy(): void {
+    this.subscription.forEach(e => e.unsubscribe())
   }
 }

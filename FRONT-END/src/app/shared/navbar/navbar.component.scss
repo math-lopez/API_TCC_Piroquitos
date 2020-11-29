@@ -27,8 +27,8 @@
 
 .btnsRight {
     margin-top: 0.7rem;
-    margin-left: 73%;
-    margin-right: 27%;
+    margin-left: 65%;
+    margin-right: 15%;
     transition: all .5s;
 }
 
@@ -36,7 +36,17 @@
     color: white;
 }
 
-.btnsRight:hover{
+.nameLogin{
+  float: right;
+  color: white;
+  margin-right: 15%;
+  padding: 0rem 1rem;
+}
+button{
+  transition: all .5s;
+}
+
+.btnsRight > button:hover{
     button{
         transition: all .5s;
     }
@@ -48,6 +58,10 @@
 
 a.active {
   color: green;
+}
+
+#menu{
+  width: 100%;
 }
 
 #menu ul li {

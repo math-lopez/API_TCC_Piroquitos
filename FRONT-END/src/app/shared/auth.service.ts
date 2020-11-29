@@ -12,7 +12,8 @@ export class AuthService {
   usuario: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   users: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   aulas: BehaviorSubject<any> = new BehaviorSubject<any>([]);
-  isAuth: BehaviorSubject<any> = new BehaviorSubject<any>(false);
+  isAuth: BehaviorSubject<any> = new BehaviorSubject(false);
+  dadosTipoUsuario: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(private http: HttpClient) {}
 
@@ -21,6 +22,15 @@ export class AuthService {
     .pipe(
       map(result => {
         this.usuario.next(result);
+        if(result.tipo == 'aluno'){
+          this.http.post(`${environment.API_URL}alunos/searchByLogin`,{login_FK: result.login}).subscribe(res => {
+            this.dadosTipoUsuario.next(res)
+          })
+        }else{
+          this.http.post(`${environment.API_URL}funcionarios/searchByLogin`,{login_FK: result.login}).subscribe(res => {
+            this.dadosTipoUsuario.next(res)
+          })
+        }
         return result;
       }));
   }
