@@ -10,12 +10,10 @@ export class AlunoService {
   constructor(private http: HttpClient) { }
 
   getAulas(alunoId){
-    console.log(alunoId)
     return this.http.post<any>(`${environment.API_URL}custom/aulasPorAluno/`, {alunoId: alunoId})
   }
 
   getAluno(login){
-    console.log(login)
     return this.http.post<any>(`${environment.API_URL}alunos/searchByLogin`, login)
   }
 }

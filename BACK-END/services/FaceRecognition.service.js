@@ -47,6 +47,10 @@ class FaceRecognitionService {
         const CAMINHO_IMG_REF = img_ref;
         const CAMINHO_IMG_QUERY = img_query;
 
+        if(!fs.existsSync(CAMINHO_IMG_REF)){
+            return { isPresente: false, msg: "A imagem de referência não foi encontrada." };
+        }
+
         const tensor_reference = await this.getImage(CAMINHO_IMG_REF);
         const result_reference = await faceapi.detectAllFaces(tensor_reference, optionsSSDMobileNet)
             .withFaceLandmarks()
@@ -57,7 +61,11 @@ class FaceRecognitionService {
             console.log("Houve um erro no reconhecimento facial.\nNão há rostos detectáveis na imagem de referência.");
             return { isPresente: false, msg: "Não há rostos detectáveis na imagem de referência." };
         }
-    
+
+        if(!fs.existsSync(CAMINHO_IMG_QUERY)){
+            return { isPresente: false, msg: "A imagem de busca não foi encontrada." };
+        }
+
         const tensor_query = await this.getImage(CAMINHO_IMG_QUERY);
         const result_query = await faceapi.detectAllFaces(tensor_query, optionsSSDMobileNet)
             .withFaceLandmarks()

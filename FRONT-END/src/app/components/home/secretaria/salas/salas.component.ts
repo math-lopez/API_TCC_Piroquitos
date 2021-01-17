@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth.service';
 import { DialogConfirmMudancaPresencaComponent } from '../../prof/dialog-confirm-mudanca-presenca/dialog-confirm-mudanca-presenca.component';
 import { SecretariaService } from '../secretaria.service';
@@ -21,6 +22,7 @@ export class SalasComponent implements OnInit {
   modeEdit: boolean = false;
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['idEsp', 'ipEsp', 'opcoes'];
+  subscription: Subscription[]= [];
   
   constructor(private authServ: AuthService, public dialog: MatDialog, private secServ: SecretariaService) {}
 
@@ -41,11 +43,12 @@ export class SalasComponent implements OnInit {
 
   getSalas() {
     // this.dataSource = new MatTableDataSource();
-    this.secServ.getSalas().subscribe((Salas) => {
-      console.log(Salas)
-      this.dataSource = new MatTableDataSource(Salas);
-      this.dataSource.paginator = this.paginator;
-    });
+    this.subscription.push(
+      this.secServ.getSalas().subscribe((Salas) => {
+        this.dataSource = new MatTableDataSource(Salas);
+        this.dataSource.paginator = this.paginator;
+      })
+    )
   }
 
   onBack(event) {
@@ -55,9 +58,12 @@ export class SalasComponent implements OnInit {
 
   openDialogAddSala(){
     const dialogRef = this.dialog.open(AddSalaComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      this.getSalas();
-    })
+
+    this.subscription.push(
+      dialogRef.afterClosed().subscribe(result => {
+        this.getSalas();
+      })
+    )
   }
 
   updateSala(sala) {
@@ -68,9 +74,11 @@ export class SalasComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.getSalas();
-    })
+    this.subscription.push(
+      dialogRef.afterClosed().subscribe(result => {
+        this.getSalas();
+      }) 
+    )
   }
 
   deleteSala(sala) {
@@ -78,17 +86,19 @@ export class SalasComponent implements OnInit {
       data: 'deseja excluir esta sala?',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if(result){
-        this.secServ.removeSala(sala.salaId)
-        .subscribe(resp => {
-          this.getSalas();
-        });
-      }
-    });
+    this.subscription.push(
+      dialogRef.afterClosed().subscribe((result) => {
+        if(result){
+          this.secServ.removeSala(sala.salaId)
+          .subscribe(resp => {
+            this.getSalas();
+          });
+        }
+      })
+    )
   }
 
-  initSala(row){
-    console.log(row);
+  ngOnDestroy(): void {
+    this.subscription.forEach(e => e.unsubscribe());
   }
 }

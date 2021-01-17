@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth.service';
 import { AulasComponent } from '../../aluno/aulas/aulas.component';
 import { ProfService } from '../prof.service';
@@ -15,8 +16,12 @@ export class AddAulaComponent implements OnInit {
   cadAula: FormGroup;
   alunosCadastrados: any[] = [];
   modeEdit: boolean = false;
-  fixChar: any = '';
+  fixCharDay: any = '';
+  fixCharMonth: any = '';
+  fixCharHour: any = '';
+  fixCharMinutes: any = '';
   selectedAlunos = [];
+  subscription: Subscription[] = []
 
   constructor(
     public dialogRef: MatDialogRef<AddAulaComponent>,
@@ -27,33 +32,43 @@ export class AddAulaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.profServ.getSalas()
-    .subscribe(resp => {
-      this.salas = resp;
-    });
+    this.subscription.push(
+      this.profServ.getSalas().subscribe((resp) => {
+        this.salas = resp;
+      })
+    );
 
-    this.profServ.getAlunos()
-    .subscribe(resp => {
+    this.subscription.push(
+    this.profServ.getAlunos().subscribe((resp) => {
       this.alunosCadastrados = resp;
-      if(this.data){
-        this.alunosCadastrados.forEach(e => {
+      if (this.data) {
+        this.alunosCadastrados.forEach((e) => {
           this.verificarMatricula(e);
         });
       }
-    });
+    }));
 
-    if (this.data){
+    if (this.data) {
       var dataUpdate = new Date(this.data.aula.inicio_Aula);
       this.modeEdit = true;
-      if(dataUpdate.getDate() <= 9 ){
-        this.fixChar = '0'
+      if (dataUpdate.getDate() <= 9) {
+        this.fixCharDay = '0';
+      }
+      if((dataUpdate.getMonth()+1) <= 9){
+        this.fixCharMonth = '0';
+      }
+      if(dataUpdate.getHours() <= 9){
+        this.fixCharHour = '0';
+      }
+      if(dataUpdate.getMinutes() <= 9){
+        this.fixCharMinutes = '0';
       }
     }
 
+    this.subscription.push(
     this.authServ.users.subscribe((resp) => {
       this.alunosCadastrados = resp;
-    });
-
+    }));
 
     this.cadAula = this.formBuilder.group({
       aula: [
@@ -63,19 +78,25 @@ export class AddAulaComponent implements OnInit {
       inicioAula: [
         this.data != undefined
           ? dataUpdate.getFullYear() +
+            '-' + 
+            this.fixCharMonth +
+            (dataUpdate.getMonth()+1) +
             '-' +
-            dataUpdate.getMonth() +
-            '-' +
-            this.fixChar + dataUpdate.getDate() +
+            this.fixCharDay +
+            dataUpdate.getDate() +
             'T' +
+            this.fixCharHour +
             dataUpdate.getHours() +
             ':' +
+            this.fixCharMinutes +
             dataUpdate.getMinutes()
           : null,
         [Validators.required],
       ],
       sala: [
-        this.data?.aula.salaId_FK != undefined ? this.data?.aula.salaId_FK : null,
+        this.data?.aula.salaId_FK != undefined
+          ? this.data?.aula.salaId_FK
+          : null,
         Validators.required,
       ],
       alunos: [
@@ -87,90 +108,109 @@ export class AddAulaComponent implements OnInit {
 
   addAula() {
     var aula = this.cadAula.value;
-    console.log(this.data);
+    this.subscription.push(
     this.authServ.usuario.subscribe((resp) => {
+      this.subscription.push(
       this.profServ.getProf(resp.login).subscribe((res) => {
-        if(this.data == null){
-          console.log('BBBB')
-          this.profServ.addAula({
-            nome: aula.aula,
-            inicio_Aula: aula.inicioAula,
-            duracao_Min: 75,
-            profId_FK: res.funcionarioId,
-            salaId_FK: aula.sala
-          }).subscribe(r => {
-            console.log(r)
-            aula.alunos.forEach(e => {
-              this.profServ.addAluno({alunoId_FK: e, aulaId_FK: r.aulaId}).
-              subscribe(result => {
-                console.log(result);
-              })
+        if (this.data == null) {
+          this.profServ
+            .addAula({
+              nome: aula.aula,
+              inicio_Aula: aula.inicioAula,
+              duracao_Min: 75,
+              profId_FK: res.funcionarioId,
+              salaId_FK: aula.sala,
+            })
+            .subscribe((r) => {
+              aula.alunos.forEach((e) => {
+                this.profServ
+                  .addAluno({ alunoId_FK: e, aulaId_FK: r.aulaId })
+                  .subscribe((result) => {});
+              });
+              setTimeout(() => {
+                this.dialogRef.close();
+              }, 500);
             });
-            setTimeout(() => {
-              this.dialogRef.close()
-            }, 500);
-          });
-        }
-        else{
-          console.log('AAAAA')
-          this.profServ.updateAula({
-            nome: aula.aula,
-            inicio_Aula: aula.inicioAula,
-            duracao_Min: 75,
-            profId_FK: res.funcionarioId,
-            salaId_FK: aula.sala,
-            aulaId: this.data.aula.aulaId
-          }).subscribe(r => {
-            if(this.selectedAlunos.length > 0){
-              if(aula.alunos.length > this.selectedAlunos.length){
-                aula.alunos.forEach(e => {
-                  if(this.selectedAlunos.filter(s => {
-                    return s != e;
-                  })){
-                    this.profServ.addAluno({alunoId_FK: e, aulaId_FK: this.data.aula.aulaId}).
-                    subscribe(result => {
-                      console.log(result);
-                    });
+        } else {
+          this.subscription.push(
+          this.profServ
+            .updateAula({
+              nome: aula.aula,
+              inicio_Aula: aula.inicioAula,
+              duracao_Min: 75,
+              profId_FK: res.funcionarioId,
+              salaId_FK: aula.sala,
+              aulaId: this.data.aula.aulaId,
+            })
+            .subscribe((r) => {
+              if (this.selectedAlunos.length > 0) {
+                let alunosAntigos = this.selectedAlunos.filter((s) => {
+                  if (!aula.alunos.includes(s)) {
+                    return true;
+                  } else {
+                    return false;
                   }
                 });
-              }else if(aula.alunos.length < this.selectedAlunos.length){
-                aula.alunos.forEach(e => {
-                  if(this.selectedAlunos.filter(s => {
-                    console.log(s != e)
-                    return s != e;
-                  })){
-                      this.profServ.removeAlunoAula(e, this.data.aula.aulaId)
-                      .subscribe(result => {
-                        console.log(result);
-                      });
-                    }
-                  })
-                }
-              }
-              else{
-                aula.alunos.forEach(e => {
-                  this.profServ.addAluno({alunoId_FK: e, aulaId_FK: this.data.aula.aulaId})
-                    .subscribe(result => {
-                    console.log(result);
-                  })
+
+                let alunosNovos = aula.alunos.filter((s) => {
+                  if (!this.selectedAlunos.includes(s)) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                });
+
+                alunosAntigos.forEach((alAntigo) => {
+                  this.subscription.push(
+                  this.profServ
+                    .removeAlunoAula(alAntigo, this.data.aula.aulaId)
+                    .subscribe((r) => {}))
+                });
+
+                alunosNovos.forEach((alNovo) => {
+                  this.subscription.push(
+                  this.profServ
+                    .addAluno({
+                      alunoId_FK: alNovo,
+                      aulaId_FK: this.data.aula.aulaId,
+                    })
+                    .subscribe((result) => {}));
+                });
+                
+              } else {
+                aula.alunos.forEach((e) => {
+                  this.profServ
+                    .addAluno({
+                      alunoId_FK: e,
+                      aulaId_FK: this.data.aula.aulaId,
+                    })
+                    .subscribe((result) => {});
                 });
               }
-            setTimeout(() => {
-              this.dialogRef.close()
-            }, 500);
-          })
+              setTimeout(() => {
+                this.dialogRef.close();
+              }, 500);
+            }))
         }
-      });
-    });
+      }))
+    })
+    );
   }
 
-  verificarMatricula(aluno){
-    let al = this.data.alunos.filter(e => {
+  verificarMatricula(aluno) {
+    let al = this.data.alunos.filter((e) => {
       return e.alunoId === aluno.alunoId;
     });
 
-    if(al.length > 0){
-      this.selectedAlunos.push(al[0].alunoId)
+    if (al.length > 0) {
+      this.selectedAlunos.push(al[0].alunoId);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.data == null;
+    this.subscription.forEach(e => {
+      e.unsubscribe()
+    })
   }
 }

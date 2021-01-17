@@ -73,7 +73,6 @@ export class ShowAlunosComponent implements OnInit {
   }
 
   editStudent(student) {
-    console.log(student);
     this.modeEdit = true;
     this.userActive = student;
   }
@@ -84,7 +83,6 @@ export class ShowAlunosComponent implements OnInit {
   }
 
   deleteAula(aula) {
-    console.log(aula)
     const dialogRef = this.dialog.open(DialogConfirmMudancaPresencaComponent, {
       data: 'deseja excluir este usuário?',
     });

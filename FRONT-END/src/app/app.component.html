@@ -1,4 +1,7 @@
 <app-navbar></app-navbar>
+<div class="loader-container" *ngIf="showSpinner">
+    <mat-progress-spinner mode="indeterminate" style="margin-left: auto; margin-right: auto;"></mat-progress-spinner>
+</div>
 <div class="contentSite">
     <router-outlet></router-outlet>
 </div>

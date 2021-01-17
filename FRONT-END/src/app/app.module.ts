@@ -14,6 +14,7 @@ import { SharedModule } from './shared/shared.module';
 import { AuthService } from './shared/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    MatProgressSpinnerModule,
     MatIconModule,
     FontAwesomeModule,
     LoginModule,
