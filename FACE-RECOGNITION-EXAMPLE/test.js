@@ -9,7 +9,7 @@ const faceapi = require('@vladmandic/face-api');
 
 // Declaração de constantes.
 const CAMINHO_RELATIVO_MODELO_IA = './model';
-const SCORE_MIN_CONFIANCA = 0.5;    // Padrão é 0.5.
+const SCORE_MIN_CONFIANCA = 0.2;    // Padrão é 0.5.
 
 // Helper para auxiliar na exibição de logs do Face API.
 function str (json) {
@@ -123,7 +123,9 @@ async function faceRecognize(img_ref, img_query) {
 }
 
 async function main(){
-    retornoReconhecimentoFacial = await faceRecognize("./lucca_2.jpg", "./lucca.jpg");
+    // retornoReconhecimentoFacial = await faceRecognize("./MATHEUS.jpg", "./MATHEUS_2.jpg");
+    // retornoReconhecimentoFacial = await faceRecognize("./MATHEUS.jpg", "./LUCCA.jpg");
+    retornoReconhecimentoFacial = await faceRecognize("./LUCCA.jpg", "./LUCCA_2.jpg");
     console.log(retornoReconhecimentoFacial);
 }
 

@@ -5,7 +5,7 @@ N/A - Plano de contingência
 OK - Foco em usabilidade/questões de formulário
 OK - Mobile
 N/A - Máscara e visualização dos dados
-OK - Taxa de acerto do reconhecimento facial (COLOCAR NA MINHA FALA)
+OK - Taxa de acerto do reconhecimento facial
 OK - Questão de direito/controle/segurança da imagem (COLOCAR NA FALA DO LUCCAAAAAAA)
  - Questão de envelhecimento da pessoa foto referencia - foto busca
 
@@ -13,7 +13,7 @@ OK - Questão de direito/controle/segurança da imagem (COLOCAR NA FALA DO LUCCA
  = Referências bibliograficas citadas não estão referenciadas no texto.
 
 OK ! - Câmera não pegar sala inteira + ter qualidade pior (COLOCAR NA MINHA FALA).
-OK ! - módulo ligado na tomada através de fonte de 5V/12V (COLOCAR NA MINHA FALA).
+OK ! - módulo ligado na tomada através de fonte de 5V/12V.
  ! - Diferença entre requisito funcional e não funcional.
 OK ! - Aluno não for reconhecido .
 
@@ -44,8 +44,51 @@ LUCCA(Slide 4-6):
 	+ Com o início das aulas cadastradas, acontece a checagem de presença com coleta de imagens recorrente, para garantir os 75% de presença, ou a % definida pela instituição.
 	Obs.: Para o protótipo, focamos no core, no principal para o projeto, e esta recorrência não está implementa, mas é um objetivo para o trabalho no futuro.
 
-Gabril ():
-->
+
+Gabril (Slide 7-10):
+-> Definições técnicas:
+	* Definimos uma solução distribuída, para isso utilizamos tecnologias como Angular pro front end, JavaScript com Node.js para o back-end, C para o software embarcado no ESP32, MySQL para o banco de dados, entre outras como as IDEs VS Code, e Arduino IDE.
+	* Todos os softwares são gratuitos, o que traz uma maior viabilidade financeira para o projeto.
+
+-> A solução foi desenhada de forma distribuída, e portanto vou separar a próxima fala em 3 partes.
+
+-> Módulo:
+	+ Sendo a primeira o módulo, conforme mostrado, baseado no ESP32, com conexão Wi-Fi, e conectado à tomada por uma fonte 5V. Desenvolvimento em C, conforme falei. O módulo será colocado um por sala, além das secretarias. O módulo disponibiliza um endpoint, onde requisitaremos uma foto, seja a da aula para presença, seja a de cadastro na secretaria. Esse módulo é bastante viável financeiramente, custando para produção, 72 reais por módulo. Aqui vale a observação de que o módulo é suficiente para o protótipo, no entanto a câmera não tem um ângulo e resolução boas o suficiente para uma sala grande, portanto como uma melhoria no futuro, trocaremos essa câmera por uma grande angular, capaz de pegar a sala inteira (Obs.: a solução já é capaz de trabalhar com uma imagem com todos os rostos).
+
+-> Aplicação WEB:
+	+ Sobre a aplicação WEB, como disse o Lucca, é, com exceção do módulo que coletará as fotos, através dela que os usuários interagirão com a solução. Através dela o funcionário da secretaria cadastrará o aluno em tempo de matrícula, através dela o aluno checará as suas presenças, o professor suas aulas, etc.
+
+-> Servidor:
+	+ No servidor, feito em node.js, temos a centralização de todo o processamento da aplicação, comunicação com o banco de dados MySQL, coleta das imagens do ESP32, e execução do reconhecimento facial.
+
+-> Conteinerização:
+	+ Por último, para fortalecer essa viabilidade financeira que comentamos, e trazer bastante escalabilidade, o desenho da solução envolve conteinerização com o uso de Docker, dessa forma a solução se torna escalável, e a necessidade computacional pra implementar o servidor também. Pequenas instituições podem rodar em servidores menos potentes, e instituições maiores em super servidores. Um adendo, para ser honesto, acabamos não conseguindo por tempo mesmo, implementar o uso de Docker nessa versão do protótipo. Mas com o que temos hoje no momento, seria um processo simples.
+
+-> Explicação da arquitetura:
+	+ Docker com server e bd.
+	+ Fluxo de cadastro.
+	+ Fluxo de aula.
+	Obs.: Na implementação do protótipo, o professor inicia aula, temos um botão para isso, apenas para facilitar a demonstração do protótipo, mas no desenho da solução, definimos que a aula será iniciada pelo horário de início cadastrado, evitando ao máximo a interação humana com a solução.
+	+ Dessa forma temos uma arquitetura que atinge nosso objetivo citado pelo lucca, é viável financeiramente, é escalável para grandes instituições, é aplicável para as menores.
+
+-> Apresentação do CORE.
+	+ Escolhemos desenvolver a nossa solução utilizando uma implementação em node do tensor flow do google, assim temos controle da tecnologia como um todo, e não precisaríamos pagar uma licença por algum serviço, como o da microsoft ou google.
+	+ Falar sobre taxa de confiança da IA configurável (configuramos em 80% - parâmetrizável).
+
 
 MATHEUS (Slide 11):
 -> APRESENTAÇÃO COMPLETA.
+	1 - Logar com s1 (1234) - Secretário
+	2 - Cadastrar aluno Matheus
+	3 - Editar nome do aluno Matheus para Matheus Lopes
+	4 - Mostrar crud da Sala
+	==============================================
+	5 - Logar com pr1 (1234) - Professor
+	6 - Adicionar nova aula REDES - 3 com Matheus matriculado.
+	7 - Atualizar aula REDES - 1 colocando Matheus e +1 como aluno
+		Obs.: Explicar o motivo do cadastro do 2º aluno (para tomar falta).
+	8 - Iniciou a aula REDES - 1 e mostrou a presença/falta.
+		Obs.: Explicar que  o botão de iniciar aula foi pela questão de mostrar o protótipo melhor, mas na solução, a aula vai ser iniciada pelo horário.
+	9 - Editou a falta e explicou "Em caso de necessidade de ajuste manual."
+	==============================================
+	10 - Logar com Matheus (1234) - Aluno
