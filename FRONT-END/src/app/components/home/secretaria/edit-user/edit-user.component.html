@@ -7,7 +7,7 @@
         <div class="form-container">
           <form [formGroup]="cadAluno" (submit)="submit()">
             <mat-form-field appearance="fill">
-                <mat-label>Login</mat-label>
+                <mat-label>Usuário</mat-label>
                 <input matInput formControlName="login">
                 <mat-error *ngIf="cadAluno.controls.login.errors?.required">campo obrigatório</mat-error>
               </mat-form-field>

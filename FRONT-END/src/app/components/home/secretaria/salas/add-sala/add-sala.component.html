@@ -1,9 +1,9 @@
 <div class="contentPage">
-    <h1 class="titlePage">adicionar sala </h1>
+    <h1 class="titlePage">Sala</h1>
         <div>
           <form [formGroup]="cadSala">
             <mat-form-field appearance="fill" style="width: 95%;">
-              <mat-label>ID ESP32 CAM</mat-label>
+              <mat-label>CÓDIGO ESP32 CAM</mat-label>
               <input matInput type="number" formControlName="idEsp" />
               <mat-error *ngIf="cadSala.controls.idEsp.errors?.required"
                 >campo obrigatório</mat-error
