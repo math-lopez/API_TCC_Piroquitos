@@ -5,6 +5,7 @@ import {
   OnInit,
   Output,
   ViewChild,
+  AfterViewInit
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -20,7 +21,7 @@ import { ProfService } from '../prof.service';
   templateUrl: './edit-presenca.component.html',
   styleUrls: ['./edit-presenca.component.scss'],
 })
-export class EditPresencaComponent implements OnInit {
+export class EditPresencaComponent implements OnInit, AfterViewInit {
   @Input() aula: any;
   @Output() back = new EventEmitter<boolean>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -37,6 +38,10 @@ export class EditPresencaComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStudents();
+  }
+
+  ngAfterViewInit(): void {
+    this.paginator._intl.itemsPerPageLabel = "itens por página";
   }
 
   getStudents() {

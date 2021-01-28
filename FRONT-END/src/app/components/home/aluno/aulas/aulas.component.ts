@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +11,7 @@ import { AlunoService } from '../aluno.service';
   templateUrl: './aulas.component.html',
   styleUrls: ['./aulas.component.scss']
 })
-export class AulasComponent implements OnInit {
+export class AulasComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -27,6 +27,10 @@ export class AulasComponent implements OnInit {
       this.user = resp;
       this.alunoServ.getAulas(this.user.login);
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.paginator._intl.itemsPerPageLabel = "itens por página";
   }
 
 }

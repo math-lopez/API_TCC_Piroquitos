@@ -1,10 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { time } from 'console';
-import { error } from 'protractor';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth.service';
 import { AddAulaComponent } from './add-aula/add-aula.component';
@@ -20,7 +18,7 @@ export interface ProfAula {
   templateUrl: './prof.component.html',
   styleUrls: ['./prof.component.scss'],
 })
-export class ProfComponent implements OnInit {
+export class ProfComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -43,6 +41,10 @@ export class ProfComponent implements OnInit {
     this.getAulas();
   }
 
+  ngAfterViewInit(): void {
+    this.paginator._intl.itemsPerPageLabel = "itens por página";
+  }
+
   addAlunosAula(re) {
     re.forEach((element) => {
       this.profServ
@@ -55,7 +57,6 @@ export class ProfComponent implements OnInit {
         });
     });
   }
-  ngAfterViewInit(): void {}
 
   checkInit(row){
     let retorno = false;

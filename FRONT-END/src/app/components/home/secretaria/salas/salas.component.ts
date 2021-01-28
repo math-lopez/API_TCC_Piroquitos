@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth.service';
@@ -14,7 +13,7 @@ import { AddSalaComponent } from './add-sala/add-sala.component';
   templateUrl: './salas.component.html',
   styleUrls: ['./salas.component.scss']
 })
-export class SalasComponent implements OnInit {
+export class SalasComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   SalaActive: any;
@@ -31,6 +30,7 @@ export class SalasComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    this.paginator._intl.itemsPerPageLabel = "itens por página";
   }
 
   editStudent(Sala) {

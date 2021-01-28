@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -14,7 +14,7 @@ import { SecretariaService } from '../../secretaria.service';
   templateUrl: './show-alunos.component.html',
   styleUrls: ['./show-alunos.component.scss'],
 })
-export class ShowAlunosComponent implements OnInit {
+export class ShowAlunosComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -28,6 +28,10 @@ export class ShowAlunosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
+  }
+
+  ngAfterViewInit(): void {
+    this.paginator._intl.itemsPerPageLabel = "itens por página";
   }
 
   getUsers() {
