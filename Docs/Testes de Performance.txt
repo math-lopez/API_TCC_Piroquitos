@@ -1,0 +1,59 @@
+Testes no notebook do Gabriel.
+
+Config:
+        ◦ Processador Intel i5 6200U (2.3 GHz – 2 núcleos e 4 Threads);
+        ◦ 8 GB de Memória RAM;
+        ◦ 1 TB de armazenamento (HDD – Disco Rígido);
+        ◦ 4 GB de Memória RAM dedicada para processamento gráfico (VRAM).
+
+A - Teste com 1 comparação:
+	Tempo total: 1,112 | 1,111 | 1,107 Segundo
+	Média: 1,11 Segundo
+
+B - Teste de 500 comparações com as mesmas imagens:
+	Tempo total: 578,394 | 568,251 | 581,641 Segundos
+	Tempo por reconhecimento facial: 1,156 | 1,136 | 1,163 Segundo
+	Média tempo por reconhecimento: 1,152 Segundo
+
+C - Teste com 60 imagens (considerando uma sala):
+	Tempo total: 57,552 | 55,765 | 54,262 Segundos
+	Tempo por reconhecimento facial: 0,959 |0,929 | 0,904 Segundo
+	Média tempo por reconhecimento: 0,930 Segundo
+
+D - Teste considerando caso de uso (8 Salas/Período - 60 Alunos/Sala - 480 Alunos):
+	Tempo total: 552,252 | 539,262 | 552,31 Segundos
+	Tempo por reconhecimento facial: 1,15 | 1,123 | 1,15 Segundo
+	Média tempo por reconhecimento: 1,141 Segundo
+
+Média final de tempo por reconhecimento facial: 1,083
+
+========================================================================================
+
+Testes no computador de mesa do Gabriel.
+
+Config:
+        ◦ Processador AMD Ryzen 7 3800X (3.9 GHz – 8 núcleos e 16 Threads);
+        ◦ 16 GB de Memória RAM;
+        ◦ 1 TB de armazenamento (HDD – Disco Rígido);
+        ◦ 8 GB de Memória RAM dedicada para processamento gráfico (VRAM).
+
+A - Teste com 1 comparação:
+	Tempo total: 0,613 | 0,567 | 0,565 Segundo
+	Média: 0,582 Segundo
+
+B - Teste de 500 comparações com as mesmas imagens:
+	Tempo total: 227,691 | 228,291 | 227,887 Segundos
+	Tempo por reconhecimento facial: 0,455 | 0,456 | 0,455 Segundo
+	Média tempo por reconhecimento: 0,455 Segundo
+
+C - Teste com 60 imagens (considerando uma sala):
+	Tempo total: 26,565 | 26,491 | 26,603 Segundos
+	Tempo por reconhecimento facial: 0,442 | 0,441 | 0,443 Segundo
+	Média tempo por reconhecimento: 0,442 Segundo
+
+D - Teste considerando caso de uso ( 17 Salas/Período - 60 Alunos/Sala - 1020 Alunos): 
+	Tempo total: 532,8 | 502,182 | 529,472 Segundos
+	Tempo por reconhecimento facial: 0,522 | 0,492 | 0,519 Segundo
+	Média tempo por reconhecimento: 0,511 Segundo
+
+Média final de tempo por reconhecimento facial: 0,497
