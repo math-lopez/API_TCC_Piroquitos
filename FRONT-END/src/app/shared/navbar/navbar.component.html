@@ -28,6 +28,9 @@
           <li *ngIf="usuario.tipo == 'secre'">
             <a [routerLink]="['home/salas']">salas</a>
           </li>
+          <li *ngIf="usuario.tipo == 'secre'">
+            <a [routerLink]="['home/salas']">aulas</a>
+          </li>
           <!-- <li *ngIf="usuario.tipo == 'professor'">
             <a routerLink="home/prof">alteração de presença</a>
           </li> -->
@@ -39,7 +42,7 @@
           </li>
         </ul>
       </nav>
-      <span class="nameLogin">{{ dadosTipoUsuario?.funcional == null? dadosTipoUsuario.RA +' | '+ dadosTipoUsuario.nome :  dadosTipoUsuario.funcional +' | '+ dadosTipoUsuario.nome }}</span>
+      <span class="nameLogin">Olá, {{ dadosTipoUsuario?.nome }}!</span>
     </mat-toolbar-row>
   </mat-toolbar>
 </div>

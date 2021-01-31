@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "tcc"
+    }
+  },
+  "defaultProject": "tcc",
+  "cli": {
+    "analytics": "011c5375-6b21-4797-bab6-13947c619ae4"
+  }
 }
