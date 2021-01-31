@@ -140,7 +140,7 @@ export class AddAulaComponent implements OnInit {
               duracao_Min: 75,
               profId_FK: res.funcionarioId,
               salaId_FK: aula.sala,
-              aulaId: this.data.aula.aulaId,
+              aulaId: this.data.aulaId,
             })
             .subscribe((r) => {
               if (this.selectedAlunos.length > 0) {
@@ -163,7 +163,7 @@ export class AddAulaComponent implements OnInit {
                 alunosAntigos.forEach((alAntigo) => {
                   this.subscription.push(
                   this.profServ
-                    .removeAlunoAula(alAntigo, this.data.aula.aulaId)
+                    .removeAlunoAula(alAntigo, this.data.aulaId)
                     .subscribe((r) => {}))
                 });
 
@@ -172,7 +172,7 @@ export class AddAulaComponent implements OnInit {
                   this.profServ
                     .addAluno({
                       alunoId_FK: alNovo,
-                      aulaId_FK: this.data.aula.aulaId,
+                      aulaId_FK: this.data.aulaId,
                     })
                     .subscribe((result) => {}));
                 });
@@ -182,7 +182,7 @@ export class AddAulaComponent implements OnInit {
                   this.profServ
                     .addAluno({
                       alunoId_FK: e,
-                      aulaId_FK: this.data.aula.aulaId,
+                      aulaId_FK: this.data.aulaId,
                     })
                     .subscribe((result) => {});
                 });

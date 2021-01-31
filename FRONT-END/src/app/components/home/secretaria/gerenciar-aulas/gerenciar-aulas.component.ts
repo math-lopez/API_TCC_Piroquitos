@@ -40,25 +40,8 @@ export class GerenciarAulasComponent implements OnInit {
         this.aulas = [];
         this.subscription.push(
         this.profServ.getAllAulas().subscribe((re) => {
-          // this.addAlunosAula(re);
+          this.addAlunosAula(re);
           re.forEach(e => {
-            this.subscription.push(
-              this.profServ.getProfById(e.profId_FK).subscribe( prof => {
-
-              this.subscription.push(
-                this.profServ.getSalaById(e.salaId_FK).subscribe(sala => {
-                  this.aulas.push({
-                    aulaId: e.aulaId,
-                    duracao_Min: e.duracao_Min,
-                    inicio_Aula: e.inicio_Aula,
-                    nome: e.nome,
-                    professor: prof,
-                    sala: sala
-                  })
-                })
-              )
-            })
-            )
             console.log(this.aulas)
           })
 
@@ -105,18 +88,32 @@ export class GerenciarAulasComponent implements OnInit {
       }
     }))
   }
-  // addAlunosAula(re) {
-  //   re.forEach((element) => {
-  //     this.profServ
-  //       .getAlunosPorAula(element.profId_FK, element.aulaId)
-  //       .subscribe((r) => {
-  //         this.profAula.push({
-  //           aula: element,
-  //           alunos: r,
-  //         });
-  //       });
-  //   });
-  // }
+  addAlunosAula(re) {
+    re.forEach((e) => {
+      this.subscription.push(
+        this.profServ.getProfById(e.profId_FK).subscribe( prof => {
+
+        this.subscription.push(
+          this.profServ.getSalaById(e.salaId_FK).subscribe(sala => {
+            this.profServ
+        .getAlunosPorAula(e.profId_FK, e.aulaId)
+        .subscribe((r) => {
+          this.aulas.push({
+            aulaId: e.aulaId,
+            duracao_Min: e.duracao_Min,
+            inicio_Aula: e.inicio_Aula,
+            nome: e.nome,
+            professor: prof,
+            sala: sala,
+            alunos: r
+          })
+        });
+          })
+        )
+      })
+      )
+    });
+  }
 
 
   openDialogAddAula() {

@@ -8,4 +8,5 @@ export interface Aulas{
     nome: string;
     professor: Professor;
     sala: Sala;
+    alunos: any[];
 }
