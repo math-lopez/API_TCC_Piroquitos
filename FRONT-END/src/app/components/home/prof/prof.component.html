@@ -1,7 +1,7 @@
 <div *ngIf="!modeEdit" class="showStudents">
   <h1 class="titlePage">
     controle de aulas / presenças
-    <div style="float: right">
+    <!-- <div style="float: right">
       <span
         id="iconAdd"
         class="material-icons"
@@ -10,7 +10,7 @@
       >
         add_circle_outline
       </span>
-    </div>
+    </div> -->
   </h1>
   <div class="contentPage">
     <table mat-table [dataSource]="dataSource" matSort>
@@ -38,22 +38,22 @@
       <ng-container matColumnDef="opcoes">
         <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;">opções</th>
         <td mat-cell *matCellDef="let row" style="text-align: center;">
-          <span
+          <!-- <span
             class="material-icons iconOptions"
             style="color: orange"
             [matTooltip]="'excluir'"
             (click)="deleteAula(row)"
           >
             delete_forever
-          </span>
-          <span
+          </span> -->
+          <!-- <span
             class="material-icons iconOptions"
             style="color: #23395b"
             [matTooltip]="'alterar'"
             (click)="updateAula(row)"
           >
             edit
-          </span>
+          </span> -->
           <span
             class="material-icons iconOptions iconInitiAula"
             [class.disabled]="checkInit(row)"
