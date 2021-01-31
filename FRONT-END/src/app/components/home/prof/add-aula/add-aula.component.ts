@@ -34,6 +34,7 @@ export class AddAulaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.data)
     this.subscription.push(
       this.profServ.getAllFuncionarios().subscribe(funcionarios => {
         funcionarios.forEach(e => {
@@ -118,7 +119,7 @@ export class AddAulaComponent implements OnInit {
         Validators.required,
       ],
       professores: [
-        this.data?.professor != undefined ? this.data?.professor.nome : null,
+        this.data?.professor != undefined ? this.data?.professor.funcionarioId : null,
         Validators.required,
       ]
     });
@@ -127,9 +128,8 @@ export class AddAulaComponent implements OnInit {
   addAula() {
     var aula = this.cadAula.value;
     console.log(aula)
-
-    if(this.cadAula.valid){
       if (this.data == null) {
+        console.log('AAA')
         this.profServ
           .addAula({
             nome: aula.aula,
@@ -149,6 +149,7 @@ export class AddAulaComponent implements OnInit {
             }, 500);
           });
       } else {
+        console.log('SSS')
         this.subscription.push(
         this.profServ
           .updateAula({
@@ -160,6 +161,7 @@ export class AddAulaComponent implements OnInit {
             aulaId: this.data.aulaId,
           })
           .subscribe((r) => {
+            console.log(r)
             if (this.selectedAlunos.length > 0) {
               let alunosAntigos = this.selectedAlunos.filter((s) => {
                 if (!aula.alunos.includes(s)) {
@@ -209,7 +211,6 @@ export class AddAulaComponent implements OnInit {
             }, 500);
           }))
       }
-    }
 
     this.subscription.push(
     this.authServ.usuario.subscribe((resp) => {
