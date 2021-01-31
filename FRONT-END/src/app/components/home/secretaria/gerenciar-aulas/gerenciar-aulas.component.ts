@@ -78,6 +78,17 @@ export class GerenciarAulasComponent implements OnInit {
         }));
   }
 
+  updateAula(aula) {
+    const dialogRef = this.dialog.open(AddAulaComponent, {
+      data: aula,
+    });
+
+    this.subscription.push(
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAulas();
+    }))
+  }
+
   deleteAula(aula) {
     console.log(aula)
     const dialogRef = this.dialog.open(DialogConfirmMudancaPresencaComponent, {

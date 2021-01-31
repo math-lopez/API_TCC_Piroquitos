@@ -49,7 +49,7 @@ export class AddAulaComponent implements OnInit {
     }));
 
     if (this.data) {
-      var dataUpdate = new Date(this.data.aula.inicio_Aula);
+      var dataUpdate = new Date(this.data.inicio_Aula);
       this.modeEdit = true;
       if (dataUpdate.getDate() <= 9) {
         this.fixCharDay = '0';
@@ -72,7 +72,7 @@ export class AddAulaComponent implements OnInit {
 
     this.cadAula = this.formBuilder.group({
       aula: [
-        this.data != undefined ? this.data.aula.nome : null,
+        this.data != undefined ? this.data.nome : null,
         [Validators.required],
       ],
       inicioAula: [
@@ -94,8 +94,8 @@ export class AddAulaComponent implements OnInit {
         [Validators.required],
       ],
       sala: [
-        this.data?.aula.salaId_FK != undefined
-          ? this.data?.aula.salaId_FK
+        this.data?.sala.salaId != undefined
+          ? this.data?.sala.salaId
           : null,
         Validators.required,
       ],
