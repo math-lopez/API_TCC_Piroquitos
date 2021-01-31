@@ -27,7 +27,7 @@
                 >campo obrigatório</mat-error
               >
               </mat-form-field>
-              <mat-form-field appearance="fill" style="width: 100%;">
+              <mat-form-field appearance="fill" style="width: 50%;">
                 <mat-label>alunos</mat-label>
                 <mat-select multiple formControlName="alunos" [ngModel]="selectedAlunos">
                   <ng-container *ngFor="let aluno of alunosCadastrados" >
@@ -35,6 +35,15 @@
                       {{aluno.RA + ' - ' +aluno.nome}}
                     </mat-option>
                   </ng-container>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" style="margin-left: 2%; width: 48%;">
+                <mat-label>professores</mat-label>
+                <mat-select formControlName="professores">
+                  <mat-option *ngFor="let professor of professores" [value]="professor.funcionarioId">
+                    {{professor.nome}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
           </form>

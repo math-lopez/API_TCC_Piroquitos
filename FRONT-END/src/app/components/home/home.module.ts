@@ -30,6 +30,7 @@ import { AlunoComponent } from './aluno/aluno.component';
 import { AulasComponent } from './aluno/aulas/aulas.component';
 import { SalasComponent } from './secretaria/salas/salas.component';
 import { AddSalaComponent } from './secretaria/salas/add-sala/add-sala.component';
+import { GerenciarAulasComponent } from './secretaria/gerenciar-aulas/gerenciar-aulas.component';
 
 
 
@@ -42,7 +43,7 @@ import { AddSalaComponent } from './secretaria/salas/add-sala/add-sala.component
     ProfComponent, 
     EditPresencaComponent, 
     AddAulaComponent, 
-    DialogConfirmMudancaPresencaComponent, AlunoComponent, AulasComponent, SalasComponent, AddSalaComponent
+    DialogConfirmMudancaPresencaComponent, AlunoComponent, AulasComponent, SalasComponent, AddSalaComponent, GerenciarAulasComponent
   ],
   imports: [
     CommonModule,

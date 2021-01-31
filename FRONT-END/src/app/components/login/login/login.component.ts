@@ -17,7 +17,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private authServ: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authServ.isAuth.next(false);
+  }
 
   auth() {
     if(this.user.valid && this.password.valid){

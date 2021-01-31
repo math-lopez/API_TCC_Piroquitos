@@ -13,6 +13,10 @@ export class ProfService {
     return this.http.post<any>(`${environment.API_URL}funcionarios/searchByLogin`, {login_FK: login});
   }
 
+  getProfById(funcionario_id){
+    return this.http.post<any>(`${environment.API_URL}funcionarios/searchById`, {funcionarioId : funcionario_id})
+  }
+
   getAlunosPorAula(profId, aulaId){
     return this.http.post<any[]>(`${environment.API_URL}custom/alunosPorAula`, {
       profId_FK: profId,
@@ -23,12 +27,28 @@ export class ProfService {
     return this.http.post<any[]>(`${environment.API_URL}salas/list`, {});
   }
 
+  getSalaById(id){
+    return this.http.post<any>(`${environment.API_URL}salas/search`, {salaId: id});
+  }
+
   getAlunos(){
     return this.http.post<any[]>(`${environment.API_URL}alunos/list`, {});
   }
 
+  getUsuario(login){
+    return this.http.post<any>(`${environment.API_URL}usuarios/search`, {login: login})
+  }
+
+  getAllFuncionarios(){
+    return this.http.post<any[]>(`${environment.API_URL}funcionarios/list/`, {})
+  }
+
   getAulas(prof){
     return this.http.post<any[]>(`${environment.API_URL}aulas/searchByIdProf`, {profId_FK: prof.funcionarioId});
+  }
+
+  getAllAulas(){
+    return this.http.post<any[]>(`${environment.API_URL}aulas/list`, {});
   }
 
   addAula(aula){

@@ -1,0 +1,35 @@
+@import '../../../../../styles';
+
+#iconAdd{
+    font-size: 2rem; 
+    cursor: pointer;
+    transition: all .3s;
+}
+
+#iconAdd:hover{
+    transform: scale(1.2, 1.2);
+}
+
+.iconOptions{
+    margin: 0rem 0.5rem;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.iconOptions:hover{
+    transform: scale(1.2, 1.2);
+
+}
+
+.iconInitiAula{
+    color: #00692f;
+}
+
+.disabled{
+    color: white;
+    background-color: white;
+}
+
+.mat-paginator-icon {
+    color: #23395B !important;
+}
