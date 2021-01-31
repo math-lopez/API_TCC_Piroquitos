@@ -23,7 +23,7 @@ export class GerenciarAulasComponent implements OnInit {
   
   subscription: Subscription[] = [];
   aulas: Aulas[] = [];
-  displayedColumns: string[] = ['nome', 'duracao', 'opcoes'];
+  displayedColumns: string[] = ['nome', 'duracao', 'responsavel', 'opcoes'];
   dataSource: MatTableDataSource<any>;
   constructor(
     public dialog: MatDialog,
