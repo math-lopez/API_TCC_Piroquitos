@@ -1,0 +1,62 @@
+<h1 class="titlePage">
+    aulas
+    <div style="float: right">
+      <span
+        id="iconAdd"
+        class="material-icons"
+        [matTooltip]="'adicionar aula'"
+        (click)="openDialogAddAula()"
+      >
+        add_circle_outline
+      </span>
+    </div>
+  </h1>
+  <div class="contentPage">
+    <table mat-table [dataSource]="dataSource">  
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef>nome</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.nome }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="duracao">
+          <th mat-header-cell *matHeaderCellDef>duração</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.duracao_Min }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="opcoes">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;">opções</th>
+          <td mat-cell *matCellDef="let row" style="text-align: center;">
+            <span
+              class="material-icons iconOptions"
+              style="color: orange"
+              [matTooltip]="'excluir'"
+              (click)='deleteAula(row)'
+            >
+              delete_forever
+            </span>
+            <span
+              class="material-icons iconOptions"
+              style="color: #23395b"
+              [matTooltip]="'alterar'"
+            >
+              edit
+            </span>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          style="cursor: pointer"
+        ></tr>
+      </table>
+  
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 25, dataSource?.data?.length]"
+      ></mat-paginator>
+    </div>
