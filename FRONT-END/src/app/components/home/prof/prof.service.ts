@@ -35,6 +35,14 @@ export class ProfService {
     return this.http.post<any[]>(`${environment.API_URL}alunos/list`, {});
   }
 
+  getUsuario(login){
+    return this.http.post<any>(`${environment.API_URL}usuarios/search`, {login: login})
+  }
+
+  getAllFuncionarios(){
+    return this.http.post<any[]>(`${environment.API_URL}funcionarios/list/`, {})
+  }
+
   getAulas(prof){
     return this.http.post<any[]>(`${environment.API_URL}aulas/searchByIdProf`, {profId_FK: prof.funcionarioId});
   }
