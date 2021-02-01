@@ -11,17 +11,17 @@ A - Teste com 1 comparação:
 	Média: 1,11 Segundo
 
 B - Teste de 500 comparações com as mesmas imagens:
-	Tempo total: 578,394 | 568,251 | 581,641 Segundos
+	Tempo total: 578,394 | 568,251 | 581,641 Segundos - Média 576,095
 	Tempo por reconhecimento facial: 1,156 | 1,136 | 1,163 Segundo
 	Média tempo por reconhecimento: 1,152 Segundo
 
 C - Teste com 60 imagens (considerando uma sala):
-	Tempo total: 57,552 | 55,765 | 54,262 Segundos
+	Tempo total: 57,552 | 55,765 | 54,262 Segundos - Média 55,859
 	Tempo por reconhecimento facial: 0,959 |0,929 | 0,904 Segundo
 	Média tempo por reconhecimento: 0,930 Segundo
 
 D - Teste considerando caso de uso (8 Salas/Período - 60 Alunos/Sala - 480 Alunos):
-	Tempo total: 552,252 | 539,262 | 552,31 Segundos
+	Tempo total: 552,252 | 539,262 | 552,31 Segundos - Média 547,941
 	Tempo por reconhecimento facial: 1,15 | 1,123 | 1,15 Segundo
 	Média tempo por reconhecimento: 1,141 Segundo
 
@@ -42,17 +42,17 @@ A - Teste com 1 comparação:
 	Média: 0,582 Segundo
 
 B - Teste de 500 comparações com as mesmas imagens:
-	Tempo total: 227,691 | 228,291 | 227,887 Segundos
+	Tempo total: 227,691 | 228,291 | 227,887 Segundos - Média 227,956
 	Tempo por reconhecimento facial: 0,455 | 0,456 | 0,455 Segundo
 	Média tempo por reconhecimento: 0,455 Segundo
 
 C - Teste com 60 imagens (considerando uma sala):
-	Tempo total: 26,565 | 26,491 | 26,603 Segundos
+	Tempo total: 26,565 | 26,491 | 26,603 Segundos - Média 26,553
 	Tempo por reconhecimento facial: 0,442 | 0,441 | 0,443 Segundo
 	Média tempo por reconhecimento: 0,442 Segundo
 
 D - Teste considerando caso de uso ( 17 Salas/Período - 60 Alunos/Sala - 1020 Alunos): 
-	Tempo total: 532,8 | 502,182 | 529,472 Segundos
+	Tempo total: 532,8 | 502,182 | 529,472 Segundos - Média 521,484
 	Tempo por reconhecimento facial: 0,522 | 0,492 | 0,519 Segundo
 	Média tempo por reconhecimento: 0,511 Segundo
 
