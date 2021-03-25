@@ -33,7 +33,7 @@ class EspService {
   }
 
   takePhoto(path, res, flag, ra_ou_aulaId) {
-    request.get("http://192.168.0.108/capture")
+    request.get("http://192.168.0.109/capture")
         .on("response", (response) => {
             if(response.statusCode === 200){
                 console.log("Foto tirada pelo ESP.");
@@ -61,7 +61,7 @@ class EspService {
       });
     }
 
-    var req = http.get("http://192.168.0.108/saved-photo", callback);
+    var req = http.get("http://192.168.0.109/saved-photo", callback);
     req.end();
   }
 
