@@ -2,4 +2,5 @@ Projeto de TCC
 
 =====================
 - Authors:
-    nóis
+    Matheus Lopes de Jesus (math-lopez)
+    Gabriel Soares Araújo (gabe-soares)
